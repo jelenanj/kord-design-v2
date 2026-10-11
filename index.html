@@ -3855,6 +3855,570 @@
   .oznake-table .row-actions .icon-btn-tooltip { width: 30px; height: 30px; }
   .oznake-table .row-actions .icon-btn-tooltip.danger { color: var(--text-error); }
 
+  /* === Dokumenti === */
+  .dok-filters {
+    display: flex; align-items: center; gap: 10px;
+    flex-wrap: wrap;
+  }
+  .dok-cat-chips {
+    display: inline-flex; align-items: center; gap: 6px;
+    flex-wrap: wrap;
+  }
+  .dok-chip {
+    background: var(--surface-default);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-pill);
+    padding: 6px 12px;
+    font-size: 13px; font-weight: 500;
+    color: var(--text-body);
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: background 0.1s, border-color 0.1s;
+  }
+  .dok-chip:hover { background: var(--surface-hover); }
+  .dok-chip.active {
+    background: var(--surface-primary-ghost, #FFF4EA);
+    border-color: var(--brand-primary, #F47C26);
+    color: var(--brand-primary, #F47C26);
+  }
+  .dok-chip .count {
+    color: var(--text-caption);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+  .dok-chip.active .count { color: var(--brand-primary, #F47C26); }
+
+  .dok-table tbody td { vertical-align: middle; padding-top: 14px; padding-bottom: 14px; }
+  .dok-cell-name {
+    display: flex; align-items: center; gap: 12px;
+    min-width: 0;
+  }
+  .dok-file-ic {
+    width: 36px; height: 44px;
+    border-radius: 4px;
+    display: inline-flex; align-items: flex-end; justify-content: center;
+    padding-bottom: 4px;
+    font-size: 9px; font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+    position: relative;
+    background: var(--text-caption);
+  }
+  .dok-file-ic::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 10px; height: 10px;
+    background: rgba(255,255,255,0.3);
+    border-bottom-left-radius: 3px;
+  }
+  .dok-file-ic.pdf   { background: #c04e6b; }
+  .dok-file-ic.xls   { background: #2d8f58; }
+  .dok-file-ic.doc   { background: #3b56a6; }
+  .dok-file-ic.img   { background: #a56fc3; }
+  .dok-file-ic.other { background: #8a7d6e; }
+  .dok-name-block {
+    display: flex; flex-direction: column; gap: 2px; min-width: 0;
+  }
+  .dok-name-block strong {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 420px;
+  }
+  .dok-name-block .meta {
+    color: var(--text-caption);
+    font-size: 12.5px;
+    font-variant-numeric: tabular-nums;
+  }
+  .dok-cat-tag {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px;
+    border-radius: var(--r-pill);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0;
+  }
+  .dok-cat-tag[data-cat="izvjestaji"] { background: #e9ecf5; color: #3b56a6; }
+  .dok-cat-tag[data-cat="ugovori"]    { background: #e6f2eb; color: #2d6b45; }
+  .dok-cat-tag[data-cat="ostalo"]     { background: var(--surface-muted); color: var(--text-caption); }
+  .dok-size {
+    color: var(--text-body);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .dok-uploader {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--text-body);
+    font-size: 13.5px;
+  }
+  .dok-uploader .avi {
+    width: 24px; height: 24px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 600;
+    color: #fff; letter-spacing: 0.2px;
+    flex-shrink: 0;
+    background: var(--text-caption);
+  }
+  .dok-uploader .avi.p1 { background: #e07a3c; }
+  .dok-uploader .avi.p2 { background: #4d6bc4; }
+  .dok-uploader .avi.p3 { background: #4a9f6f; }
+  .dok-uploader .avi.p4 { background: #c04e6b; }
+  .dok-uploader .avi.p5 { background: #8a63c0; }
+  .dok-table .cell-date {
+    color: var(--text-heading);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .dok-table .row-actions {
+    display: inline-flex; align-items: center; gap: 4px;
+    justify-content: flex-end;
+  }
+  .dok-table .row-actions .icon-btn-tooltip { width: 30px; height: 30px; }
+
+  /* Dropzone za upload drawer */
+  .dok-dropzone {
+    border: 2px dashed var(--border-default);
+    border-radius: var(--r-m);
+    padding: 32px 20px;
+    text-align: center;
+    background: var(--surface-muted);
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+  }
+  .dok-dropzone:hover { background: var(--surface-hover); border-color: var(--border-strong); }
+  .dok-dropzone.dragover {
+    background: var(--surface-primary-ghost, #FFF4EA);
+    border-color: var(--brand-primary, #F47C26);
+    border-style: solid;
+  }
+  .dok-dropzone-icon {
+    width: 48px; height: 48px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: var(--surface-default);
+    color: var(--brand-primary, #F47C26);
+    border: 1px solid var(--border-subtle);
+  }
+  .dok-dropzone-title {
+    font-size: 14px; font-weight: 500; color: var(--text-body);
+  }
+  .dok-dropzone-sub {
+    font-size: 12.5px; color: var(--text-caption);
+  }
+  .dok-dropzone-browse {
+    color: var(--brand-primary, #F47C26); font-weight: 500;
+    text-decoration: underline; cursor: pointer;
+  }
+  .dok-dropzone-formats {
+    font-size: 11.5px; color: var(--text-placeholder);
+    margin-top: 4px;
+  }
+
+  .dok-upload-list {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .dok-upload-item {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 14px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-s);
+    background: var(--surface-default);
+  }
+  .dok-upload-item .dok-file-ic { width: 32px; height: 40px; font-size: 8px; }
+  .dok-upload-item-body {
+    display: flex; flex-direction: column; gap: 6px; min-width: 0;
+  }
+  .dok-upload-item-name {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13.5px; color: var(--text-body); font-weight: 500;
+  }
+  .dok-upload-item-name .name {
+    min-width: 0;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .dok-upload-item-name .size {
+    color: var(--text-caption); font-weight: 400;
+    font-size: 12.5px; font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+  .dok-upload-item-cat {
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .dok-upload-item-cat .form-field {
+    padding: 5px 10px;
+    font-size: 12.5px;
+    min-height: 0;
+  }
+  .dok-upload-remove {
+    background: none; border: none; cursor: pointer;
+    color: var(--icon-muted);
+    width: 28px; height: 28px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: var(--r-xs);
+  }
+  .dok-upload-remove:hover { background: var(--surface-hover); color: var(--text-error); }
+
+  /* Edit drawer file card */
+  .dok-edit-filecard {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    background: var(--surface-muted);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-s);
+    margin-bottom: 4px;
+  }
+  .dok-edit-filecard .dok-file-ic { width: 40px; height: 48px; font-size: 9px; }
+  .dok-edit-filecard .info { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .dok-edit-filecard .info .nm {
+    font-weight: 500; font-size: 13.5px; color: var(--text-body);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .dok-edit-filecard .info .meta {
+    color: var(--text-caption); font-size: 12px;
+    display: flex; align-items: center; gap: 10px;
+    flex-wrap: wrap;
+  }
+  .dok-edit-filecard .info .meta .sep { color: var(--border-strong); }
+  .dok-edit-filecard .info .meta .by {
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .dok-edit-filecard .info .meta .by .avi {
+    width: 18px; height: 18px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 8.5px; font-weight: 600;
+    color: #fff; letter-spacing: 0.2px;
+  }
+  .dok-edit-filecard .info .meta .by .avi.p1 { background: #e07a3c; }
+  .dok-edit-filecard .info .meta .by .avi.p2 { background: #4d6bc4; }
+  .dok-edit-filecard .info .meta .by .avi.p3 { background: #4a9f6f; }
+  .dok-edit-filecard .info .meta .by .avi.p4 { background: #c04e6b; }
+  .dok-edit-filecard .info .meta .by .avi.p5 { background: #8a63c0; }
+
+  /* Danger text button for footers */
+  .btn-text.danger {
+    color: var(--text-error, #c81e1e);
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 10px;
+    background: none; border: none; cursor: pointer;
+    font-size: 13.5px; font-weight: 500;
+    border-radius: var(--r-xs);
+  }
+  .btn-text.danger:hover { background: var(--status-error-tint, #fdecec); }
+
+  /* === Quick Add modal === */
+  .qa-overlay {
+    position: fixed; inset: 0;
+    background: rgba(30,31,33,0.4);
+    z-index: 450;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.15s;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 80px 20px 40px;
+    overflow-y: auto;
+  }
+  .qa-overlay.open { opacity: 1; pointer-events: auto; }
+  .qa-modal {
+    background: var(--surface-default);
+    border-radius: var(--r-m);
+    box-shadow: var(--shadow-popover, 0 20px 48px rgba(30,31,33,0.18));
+    width: 460px; max-width: 100%;
+    display: flex; flex-direction: column;
+    opacity: 0; transform: translateY(-8px) scale(0.98);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  .qa-overlay.open .qa-modal {
+    opacity: 1; transform: translateY(0) scale(1);
+  }
+  .qa-header {
+    padding: 18px 20px 10px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .qa-header h2 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: var(--text-heading);
+    letter-spacing: -0.2px;
+  }
+  .qa-close {
+    background: none; border: none; cursor: pointer;
+    color: var(--icon-muted);
+    width: 28px; height: 28px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: var(--r-xs);
+  }
+  .qa-close:hover { background: var(--surface-hover); color: var(--text-body); }
+  .qa-body { padding: 4px 10px 14px; }
+  .qa-group {
+    padding: 8px 0;
+  }
+  .qa-group + .qa-group { border-top: 1px solid var(--border-subtle); }
+  .qa-group-label {
+    color: var(--text-caption);
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 6px 10px;
+  }
+  .qa-item {
+    display: grid;
+    grid-template-columns: 36px 1fr 16px;
+    gap: 12px;
+    align-items: center;
+    padding: 9px 10px;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border-radius: var(--r-s);
+    transition: background 0.08s;
+  }
+  .qa-item:hover { background: var(--surface-hover); }
+  .qa-item-ic {
+    width: 36px; height: 36px;
+    border-radius: var(--r-s);
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .qa-item-ic.peach { background: #fddecf; color: #b34a1a; }
+  .qa-item-ic.denim { background: #dfe8fb; color: #254792; }
+  .qa-item-ic.green { background: #dcf5e5; color: #256b3f; }
+  .qa-item-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .qa-item-title {
+    color: var(--text-body);
+    font-size: 14px; font-weight: 500;
+    line-height: 18px;
+  }
+  .qa-item-desc {
+    color: var(--text-caption);
+    font-size: 12.5px;
+    line-height: 16px;
+  }
+  .qa-item-chev {
+    color: var(--icon-muted);
+    opacity: 0;
+    transition: opacity 0.1s, transform 0.12s;
+  }
+  .qa-item:hover .qa-item-chev { opacity: 1; transform: translateX(2px); }
+
+  /* === Lokacija → Financije (dnevna tablica) === */
+  .fin-month-toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .fin-month-title {
+    font-family: var(--font-heading);
+    font-size: 18px; font-weight: 500;
+    color: var(--text-heading);
+    letter-spacing: -0.1px;
+    margin: 0;
+  }
+  .fin-month-controls {
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .fin-toggle-item {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--text-body); font-size: 13px; font-weight: 500;
+  }
+  .fin-month-nav {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-s);
+    overflow: hidden;
+    background: var(--surface-default);
+  }
+  .fin-month-nav button {
+    background: none; border: none; cursor: pointer;
+    color: var(--icon-muted);
+    width: 32px; height: 34px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .fin-month-nav button:hover { background: var(--surface-hover); color: var(--text-body); }
+  .fin-month-nav .val {
+    padding: 0 12px;
+    font-size: 13px; font-weight: 500;
+    color: var(--text-body);
+    font-variant-numeric: tabular-nums;
+    display: inline-flex; align-items: center; gap: 8px;
+    border-left: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
+    height: 34px;
+  }
+  .fin-export-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px;
+    background: var(--brand-primary, #F47C26);
+    color: #fff;
+    border: none; border-radius: var(--r-s);
+    font-size: 13px; font-weight: 500;
+    cursor: pointer;
+  }
+  .fin-export-btn:hover { opacity: 0.95; }
+
+  /* Daily shifts table (Lokacija detalj → Financije tab) */
+  .loc-fin-wrap {
+    background: var(--surface-default);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-m);
+    overflow: hidden;
+  }
+  .loc-fin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    color: var(--text-body);
+    table-layout: fixed;
+  }
+  /* Column widths — Vrijeme i Zaposlenici dalje odmaknuti udesno */
+  .loc-fin-table col.c-dan { width: 200px; }
+  .loc-fin-table col.c-vrijeme { width: 280px; }
+  .loc-fin-table col.c-zaposlenici { width: auto; }
+  .loc-fin-table col.c-sati { width: 90px; }
+  .loc-fin-table col.c-cijena { width: 120px; }
+  .loc-fin-table col.c-dodaci { width: 120px; }
+  .loc-fin-table col.c-prihod { width: 130px; }
+  .loc-fin-table thead th {
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--surface-muted);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--text-caption);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-subtle);
+    white-space: nowrap;
+  }
+  .loc-fin-table thead th:first-child { padding-left: 24px; }
+  .loc-fin-table thead th:last-child { padding-right: 24px; }
+  .loc-fin-table th.num, .loc-fin-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* Totals row — jasna vizualna razdjeljnica, totali ispod header labela */
+  .loc-fin-totals-row td {
+    padding: 10px 16px;
+    background: #FFF9F2;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-body);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .loc-fin-totals-row td:first-child { padding-left: 24px; color: var(--text-caption); font-weight: 500; }
+  .loc-fin-totals-row td:last-child { padding-right: 24px; }
+  .loc-fin-totals-row td.num { text-align: right; }
+
+  /* Week band — subtle grouping separator */
+  .loc-fin-week-band td {
+    padding: 10px 24px;
+    background: var(--surface-muted);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 11.5px;
+    color: var(--text-caption);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .loc-fin-week-band .week-meta {
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    margin-left: 10px;
+    color: var(--text-caption);
+  }
+
+  /* Data rows */
+  .loc-fin-table tbody td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    vertical-align: middle;
+  }
+  .loc-fin-table tbody td:first-child { padding-left: 24px; }
+  .loc-fin-table tbody td:last-child { padding-right: 24px; }
+  .loc-fin-table tbody tr:last-child td { border-bottom: 0; }
+  /* no row hover — ništa nije klikabilno */
+  .loc-fin-table .day-cell {
+    color: var(--text-body);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .loc-fin-table .day-cell.cont { opacity: 0; }
+  .loc-fin-table .vrijeme-cell {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-body);
+    white-space: nowrap;
+  }
+  .loc-fin-table .vrijeme-cell .next-day {
+    color: var(--text-caption);
+    font-size: 12.5px;
+    font-weight: 400;
+    margin-left: 6px;
+  }
+  .loc-fin-table .zap-cell {
+    color: var(--text-body);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .loc-fin-table .zap-cell.hidden-names {
+    color: var(--text-caption);
+    font-style: italic;
+  }
+  .loc-fin-table .cijena-cell {
+    color: var(--text-body);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .loc-fin-table .dodaci-cell.empty { color: var(--border-strong); }
+  .loc-fin-table .prihod-cell {
+    color: var(--text-body);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* Toggle switch helper used in fin toolbar */
+  .toggle-sw {
+    position: relative;
+    width: 36px; height: 20px;
+    background: var(--border-strong);
+    border-radius: 999px;
+    border: none; cursor: pointer;
+    padding: 0;
+    transition: background 0.15s;
+  }
+  .toggle-sw::after {
+    content: '';
+    position: absolute;
+    left: 2px; top: 2px;
+    width: 16px; height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.15s;
+  }
+  .toggle-sw[aria-checked="true"] { background: var(--brand-primary, #F47C26); }
+  .toggle-sw[aria-checked="true"]::after { transform: translateX(16px); }
+
   /* Podružnice — konkretnija tablica (avatar + naziv, veći padding) */
   .podr-table tbody tr td { padding-top: 16px; padding-bottom: 16px; vertical-align: middle; }
   .podr-cell-name {
@@ -5647,6 +6211,7 @@
     <nav class="nav">
       <a href="#" data-nav="pocetna"><i data-ic="home" data-ic-size="18"></i>Početna</a>
       <a href="#" data-nav="financije"><i data-ic="money" data-ic-size="18"></i>Financije</a>
+      <a href="#" data-nav="dokumenti"><i data-ic="folder" data-ic-size="18"></i>Dokumenti</a>
       <a href="#" class="active" data-nav="smjene"><i data-ic="calendar" data-ic-size="18"></i>Smjene</a>
       <a href="#" data-nav="lokacije"><i data-ic="building" data-ic-size="18"></i>Lokacije</a>
       <a href="#" data-nav="dogadjaji"><i data-ic="calendar-event" data-ic-size="18"></i>Događaji</a>
@@ -6118,39 +6683,58 @@
           </div>
         </div>
         <div class="tab-panel" data-panel="financije" hidden>
-          <div class="kpi-grid">
-            <div class="kpi-card">
-              <span class="kpi-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>Broj smjena</span>
-              <span class="kpi-value" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif !important">126</span>
-              <span class="kpi-delta down"><svg width="9" height="9" viewBox="0 0 12 12"><path d="M6 11L1 3h10z" fill="currentColor"/></svg>18,7 %<span class="kpi-vs">vs kolovoz</span></span>
-            </div>
-            <div class="kpi-card">
-              <span class="kpi-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>Prihod</span>
-              <span class="kpi-value" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif !important">223 747,10 €</span>
-              <span class="kpi-delta down"><svg width="9" height="9" viewBox="0 0 12 12"><path d="M6 11L1 3h10z" fill="currentColor"/></svg>12,4 %<span class="kpi-vs">vs kolovoz</span></span>
-            </div>
-            <div class="kpi-card">
-              <span class="kpi-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M14 3v6h6"/></svg>Trošak</span>
-              <span class="kpi-value" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif !important">155 159,51 €</span>
-              <span class="kpi-delta up"><svg width="9" height="9" viewBox="0 0 12 12"><path d="M6 1l5 8H1z" fill="currentColor"/></svg>15,1 %<span class="kpi-vs">manje</span></span>
-            </div>
-            <div class="kpi-card">
-              <span class="kpi-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6l-9.5 9.5-5-5L2 16"/><path d="M16 6h6v6"/></svg>Profit</span>
-              <span class="kpi-value" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif !important" style="color: var(--text-success)">68 587,59 €</span>
-              <span class="kpi-delta down"><svg width="9" height="9" viewBox="0 0 12 12"><path d="M6 11L1 3h10z" fill="currentColor"/></svg>5,6 %<span class="kpi-vs">vs kolovoz</span></span>
+          <div class="fin-month-toolbar">
+            <h3 class="fin-month-title">Listopad 2026.</h3>
+            <div class="fin-month-controls">
+              <label class="fin-toggle-item">
+                <span>Imena zaposlenika</span>
+                <button class="toggle-sw" type="button" role="switch" aria-checked="true" id="locFinZapToggle" aria-label="Prikaži imena zaposlenika"></button>
+              </label>
+              <div class="fin-month-nav" role="group" aria-label="Mjesečna navigacija">
+                <button type="button" aria-label="Prethodni mjesec"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+                <span class="val"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>Listopad 2026.</span>
+                <button type="button" aria-label="Sljedeći mjesec"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+              </div>
+              <button class="fin-export-btn" type="button" id="finExportBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 10h5l-6 6-6-6h5V3h2v7z"/><path d="M4 20h16"/></svg>
+                Izvoz
+              </button>
             </div>
           </div>
 
-          <div class="chart-card">
-            <div class="chart-header">
-              <h4>Trend zadnjih 6 mjeseci</h4>
-              <div class="chart-legend">
-                <span><span class="swatch" style="background: #F47C26"></span>Prihod</span>
-                <span><span class="swatch" style="background: #A5ACBE"></span>Trošak</span>
-                <span><span class="swatch" style="background: #7385B2"></span>Profit</span>
-              </div>
-            </div>
-            <svg class="financije-chart" viewBox="0 0 780 140" role="img" aria-label="Trend prihod-trošak-profit zadnjih 6 mjeseci" id="financijeChart"></svg>
+          <div class="loc-fin-wrap">
+            <table class="loc-fin-table" id="locFinTable">
+              <colgroup>
+                <col class="c-dan">
+                <col class="c-vrijeme">
+                <col class="c-zaposlenici">
+                <col class="c-sati">
+                <col class="c-cijena">
+                <col class="c-dodaci">
+                <col class="c-prihod">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Dan</th>
+                  <th>Vrijeme</th>
+                  <th>Zaposlenici</th>
+                  <th class="num">Sati</th>
+                  <th class="num">Cijena</th>
+                  <th class="num">Dodaci</th>
+                  <th class="num">Prihod</th>
+                </tr>
+                <tr class="loc-fin-totals-row">
+                  <td id="locFinTotalShifts">50 smjena</td>
+                  <td></td>
+                  <td></td>
+                  <td class="num" id="locFinTotalHours">1.202 h</td>
+                  <td></td>
+                  <td class="num" id="locFinTotalDodaci">3.725,00 €</td>
+                  <td class="num" id="locFinTotalPrihod">18.750,00 €</td>
+                </tr>
+              </thead>
+              <tbody id="locFinTbody"></tbody>
+            </table>
           </div>
         </div>
         <div class="tab-panel" data-panel="cijene" hidden><div class="tab-placeholder">Cijene — u pripremi.</div></div>
@@ -6768,6 +7352,67 @@
             <button class="page-btn" type="button" aria-label="Zadnja">»</button>
           </div>
           <div class="pagination-info"><span id="oznakeVisible">1 – 11</span> od <span id="oznakeTotal">11</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== DOKUMENTI page ========== -->
+    <section class="page-view" data-page="dokumenti" hidden>
+      <div class="page-header">
+        <div class="page-heading">
+          <div>
+            <h1>Dokumenti</h1>
+            <div class="subtitle">Izvještaji, ugovori i ostali dokumenti vezani uz vaše poslovanje.</div>
+          </div>
+          <div style="display:flex; gap:12px; flex-shrink:0">
+            <button class="btn-primary" type="button" id="btnDodajDok">
+              <i data-ic="upload" data-ic-size="16"></i>
+              Dodaj dokumente
+            </button>
+          </div>
+        </div>
+
+        <div class="toolbar" role="toolbar" aria-label="Filteri dokumenata">
+          <div class="search-field">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input type="text" placeholder="Pretraži dokumente…" id="dokSearch">
+          </div>
+          <div class="dok-cat-chips" id="dokCatChips" role="tablist" aria-label="Kategorija">
+            <button class="dok-chip active" type="button" data-dok-cat="all" role="tab" aria-selected="true">Sve <span class="count" id="dokCountAll"></span></button>
+            <button class="dok-chip" type="button" data-dok-cat="izvjestaji" role="tab">Izvještaji <span class="count" id="dokCountIzv"></span></button>
+            <button class="dok-chip" type="button" data-dok-cat="ugovori" role="tab">Ugovori <span class="count" id="dokCountUg"></span></button>
+            <button class="dok-chip" type="button" data-dok-cat="ostalo" role="tab">Ostalo <span class="count" id="dokCountOst"></span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="table-wrap">
+          <table class="ds-table dok-table">
+            <thead>
+              <tr>
+                <th class="th-sortable" data-sort="name">Naziv <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10l5-5 5 5M7 14l5 5 5-5"/></svg></th>
+                <th>Kategorija</th>
+                <th class="th-sortable" data-sort="size">Veličina <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10l5-5 5 5M7 14l5 5 5-5"/></svg></th>
+                <th>Dodao</th>
+                <th class="th-sortable" data-sort="date">Datum <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10l5-5 5 5M7 14l5 5 5-5"/></svg></th>
+                <th class="th-actions"></th>
+              </tr>
+            </thead>
+            <tbody id="dokTbody"></tbody>
+          </table>
+          <div class="empty-note" id="dokEmpty" hidden>Nema dokumenata koji odgovaraju filteru.</div>
+        </div>
+
+        <div class="pagination-bar">
+          <div class="page-btns">
+            <button class="page-btn" type="button" aria-label="Prva stranica">«</button>
+            <button class="page-btn" type="button" aria-label="Prethodna">‹</button>
+            <button class="page-btn active" type="button">1</button>
+            <button class="page-btn" type="button" aria-label="Sljedeća">›</button>
+            <button class="page-btn" type="button" aria-label="Zadnja">»</button>
+          </div>
+          <div class="pagination-info"><span id="dokVisible">1 – 8</span> od <span id="dokTotal">8</span></div>
         </div>
       </div>
     </section>
@@ -7599,6 +8244,169 @@
     <div class="spacer"></div>
     <button class="btn-secondary" type="button" id="novaOznDrawerCancel">Odustani</button>
     <button class="btn-primary" type="button" id="novaOznDrawerSave">Spremi</button>
+  </footer>
+</aside>
+
+<!-- Quick Add modal (sidebar "Dodaj novo") -->
+<div class="qa-overlay" id="qaOverlay" aria-hidden="true">
+  <div class="qa-modal" role="dialog" aria-modal="true" aria-labelledby="qaTitle">
+    <header class="qa-header">
+      <h2 id="qaTitle">Dodaj novo</h2>
+      <button class="qa-close" type="button" id="qaClose" aria-label="Zatvori">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </header>
+    <div class="qa-body">
+      <div class="qa-group">
+        <div class="qa-group-label">Smjene i predlošci</div>
+        <button class="qa-item" type="button" data-qa="smjene">
+          <span class="qa-item-ic peach"><i data-ic="calendar-event" data-ic-size="18"></i></span>
+          <span class="qa-item-text">
+            <span class="qa-item-title">Dodaj više smjena</span>
+            <span class="qa-item-desc">Kreiraj raspored za jedan ili više tjedana</span>
+          </span>
+          <svg class="qa-item-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button class="qa-item" type="button" data-qa="predlozak">
+          <span class="qa-item-ic peach"><i data-ic="file-list-2" data-ic-size="18"></i></span>
+          <span class="qa-item-text">
+            <span class="qa-item-title">Dodaj predložak</span>
+            <span class="qa-item-desc">Spremi tjedni raspored za ponovnu primjenu</span>
+          </span>
+          <svg class="qa-item-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="qa-group">
+        <div class="qa-group-label">Lokacije i ljudi</div>
+        <button class="qa-item" type="button" data-qa="lokacija">
+          <span class="qa-item-ic denim"><i data-ic="building" data-ic-size="18"></i></span>
+          <span class="qa-item-text">
+            <span class="qa-item-title">Dodaj lokaciju</span>
+            <span class="qa-item-desc">Novi objekt s adresom i cijenom</span>
+          </span>
+          <svg class="qa-item-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button class="qa-item" type="button" data-qa="zaposlenik">
+          <span class="qa-item-ic denim"><i data-ic="group" data-ic-size="18"></i></span>
+          <span class="qa-item-text">
+            <span class="qa-item-title">Dodaj zaposlenika</span>
+            <span class="qa-item-desc">Terenski radnik ili voditelj</span>
+          </span>
+          <svg class="qa-item-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button class="qa-item" type="button" data-qa="korisnik">
+          <span class="qa-item-ic denim"><i data-ic="user-add" data-ic-size="18"></i></span>
+          <span class="qa-item-text">
+            <span class="qa-item-title">Pozovi korisnika</span>
+            <span class="qa-item-desc">Email pozivnica za pristup web aplikaciji</span>
+          </span>
+          <svg class="qa-item-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="qa-group">
+        <div class="qa-group-label">Dokumenti i izvještaji</div>
+        <button class="qa-item" type="button" data-qa="dokument">
+          <span class="qa-item-ic green"><i data-ic="folder" data-ic-size="18"></i></span>
+          <span class="qa-item-text">
+            <span class="qa-item-title">Dodaj dokumente</span>
+            <span class="qa-item-desc">Uploadaj PDF, Excel, Word ili sliku</span>
+          </span>
+          <svg class="qa-item-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button class="qa-item" type="button" data-qa="izvjestaj">
+          <span class="qa-item-ic green"><i data-ic="bar-chart-box" data-ic-size="18"></i></span>
+          <span class="qa-item-text">
+            <span class="qa-item-title">Generiraj izvješće</span>
+            <span class="qa-item-desc">Mjesečni financijski ili operativni izvještaj</span>
+          </span>
+          <svg class="qa-item-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dodaj dokumente drawer -->
+<div class="drawer-overlay" id="dokOverlay" aria-hidden="true"></div>
+<aside class="drawer wide-drawer" id="dokDrawer" role="dialog" aria-modal="true" aria-labelledby="dokDrawerTitle" aria-hidden="true">
+  <header class="drawer-header">
+    <div class="drawer-title">
+      <h2 id="dokDrawerTitle">Dodaj dokumente</h2>
+    </div>
+    <button class="drawer-close" type="button" aria-label="Zatvori" id="dokDrawerClose">
+      <i data-ic="close" data-ic-size="18"></i>
+    </button>
+  </header>
+
+  <div class="drawer-body">
+    <div class="dok-dropzone" id="dokDropzone">
+      <div class="dok-dropzone-icon"><i data-ic="upload" data-ic-size="22"></i></div>
+      <div>
+        <div class="dok-dropzone-title">Povucite datoteke ovdje</div>
+        <div class="dok-dropzone-sub">ili <span class="dok-dropzone-browse" id="dokBrowseLink">odaberite s računala</span></div>
+      </div>
+      <div class="dok-dropzone-formats">Podržano: PDF, DOCX, XLSX, JPG, PNG · maks. 25 MB po datoteci</div>
+      <input type="file" id="dokFileInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png" style="display:none">
+    </div>
+
+    <div class="form-group" id="dokUploadListGroup" hidden>
+      <label class="form-label">Datoteke za upload (<span id="dokUploadCount">0</span>)</label>
+      <div class="dok-upload-list" id="dokUploadList"></div>
+    </div>
+  </div>
+
+  <footer class="drawer-footer">
+    <div class="spacer"></div>
+    <button class="btn-secondary" type="button" id="dokDrawerCancel">Odustani</button>
+    <button class="btn-primary" type="button" id="dokDrawerSave" disabled>Spremi</button>
+  </footer>
+</aside>
+
+<!-- Uredi dokument drawer -->
+<div class="drawer-overlay" id="dokEditOverlay" aria-hidden="true"></div>
+<aside class="drawer" id="dokEditDrawer" role="dialog" aria-modal="true" aria-labelledby="dokEditDrawerTitle" aria-hidden="true">
+  <header class="drawer-header">
+    <div class="drawer-title">
+      <h2 id="dokEditDrawerTitle">Uredi dokument</h2>
+    </div>
+    <button class="drawer-close" type="button" aria-label="Zatvori" id="dokEditDrawerClose">
+      <i data-ic="close" data-ic-size="18"></i>
+    </button>
+  </header>
+
+  <div class="drawer-body">
+    <div class="dok-edit-filecard" id="dokEditFileCard">
+      <!-- filled by JS: file ic + name + meta (ext · size) + uploader + date -->
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="dokEditName">Naziv datoteke <span class="req">*</span></label>
+      <div class="form-input-wrap">
+        <input type="text" id="dokEditName" placeholder="npr. Izvještaj financija — rujan 2026">
+      </div>
+      <div class="field-hint-sm" id="dokEditExtHint">Ekstenzija (<span id="dokEditExtName">.pdf</span>) ostaje nepromijenjena.</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="dokEditCat">Kategorija <span class="req">*</span></label>
+      <select class="form-field" id="dokEditCat">
+        <option value="izvjestaji">Izvještaji</option>
+        <option value="ugovori">Ugovori</option>
+        <option value="ostalo">Ostalo</option>
+      </select>
+    </div>
+  </div>
+
+  <footer class="drawer-footer">
+    <button class="btn-text danger" type="button" id="dokEditDelete">
+      <i data-ic="trash" data-ic-size="14"></i>
+      Izbriši
+    </button>
+    <div class="spacer"></div>
+    <button class="btn-secondary" type="button" id="dokEditCancel">Odustani</button>
+    <button class="btn-primary" type="button" id="dokEditSave">Spremi</button>
   </footer>
 </aside>
 
@@ -10221,7 +11029,63 @@
       b.addEventListener('click', openWizard);
     }
   });
-  document.querySelector('.btn-add-cta')?.addEventListener('click', openWizard);
+  // Quick Add modal — sidebar "Dodaj novo" otvara izbor flow-a
+  const openQaModal = () => {
+    const o = document.getElementById('qaOverlay');
+    o.classList.add('open');
+    o.setAttribute('aria-hidden', 'false');
+  };
+  const closeQaModal = () => {
+    const o = document.getElementById('qaOverlay');
+    o.classList.remove('open');
+    o.setAttribute('aria-hidden', 'true');
+  };
+  document.querySelector('.btn-add-cta')?.addEventListener('click', openQaModal);
+  document.getElementById('qaClose')?.addEventListener('click', closeQaModal);
+  document.getElementById('qaOverlay')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeQaModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('qaOverlay').classList.contains('open')) {
+      closeQaModal();
+    }
+  });
+  document.getElementById('qaOverlay')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-qa]');
+    if (!btn) return;
+    const action = btn.dataset.qa;
+    closeQaModal();
+    // Route to the right flow
+    switch (action) {
+      case 'smjene':
+        setPage('smjene');
+        openWizard();
+        break;
+      case 'predlozak':
+        setPage('predlosci');
+        setTimeout(() => document.getElementById('btnNoviPredlozak')?.click(), 50);
+        break;
+      case 'lokacija':
+        setPage('lokacije');
+        setTimeout(() => document.getElementById('btnNovaLokacija')?.click(), 50);
+        break;
+      case 'zaposlenik':
+        setPage('zaposlenici');
+        setTimeout(() => document.getElementById('btnNoviZap')?.click(), 50);
+        break;
+      case 'korisnik':
+        // No dedicated page yet — show hint via nav
+        setPage('postavke');
+        break;
+      case 'dokument':
+        setPage('dokumenti');
+        setTimeout(() => openDokDrawer(), 50);
+        break;
+      case 'izvjestaj':
+        setPage('financije');
+        break;
+    }
+  });
 
   // ---- Generic dropdown setup ----
   const iconCheck = `<svg class="check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>`;
@@ -10816,9 +11680,142 @@
       svg += `<text x="${labelX.toFixed(1)}" y="${(padT + plotH + 12).toFixed(1)}" fill="${highlight ? '#F47C26' : '#565b68'}" font-weight="${highlight ? 600 : 500}" font-size="8" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">${d.month}</text>`;
     });
 
-    document.getElementById('financijeChart').innerHTML = svg;
+    const chartEl = document.getElementById('financijeChart');
+    if (chartEl) chartEl.innerHTML = svg;
   };
   renderFinancijeChart();
+
+  // ---- Lokacija → Financije: daily shift table (Listopad 2026) ----
+  // Shift pairs per day: day 07:00-19:00 + night 19:00-07:00 (cross-day)
+  const LOC_FIN_EMP_PAIRS = [
+    ['Duje Horvat', 'Ivana Vuković'],
+    ['Josip Krznarić', 'Ivan Marić'],
+    ['Nikolina Klarić', 'Damir Blažević'],
+    ['Ante Pavić', 'Goran Novak'],
+    ['Marko Kovač', 'Luka Babić'],
+  ];
+  const LOC_FIN_DAY_ABBR = ['pon', 'uto', 'sri', 'čet', 'pet', 'sub', 'ned'];
+  const LOC_FIN_OCT_START_DAY = 3; // čet
+
+  const buildLocFinData = () => {
+    const CIJENA = '12,50 €/sat';
+    const HOURS = 24;
+    const BASE = 300;
+    const WEEKEND_SURCHARGE = 150;    // sub prihod bonus
+    const WEEKEND_PREMIUM = 187.50;
+    const NIGHT_DODACI = 100;
+    const SUNDAY_DAY_DODACI = 150;
+    const SUNDAY_NIGHT_DODACI = 162.50;
+
+    const days = [];
+    let dow = LOC_FIN_OCT_START_DAY;
+    let pairIdx = 0;
+    let weekNum = 40;
+    const weeksAcc = {};
+
+    // Dev data pattern: 25 dana × 2 shifta = 50 smjena. Base je uvijek 300 €.
+    // Dnevna radnim: dodaci 0. Noćna radnim: 100. Noćna sub→ned: 187,50. Ned dnevna: 150. Ned noćna: 162,50.
+    for (let d = 1; d <= 25; d++) {
+      if (d > 1 && dow === 0) weekNum++;
+      const dayShifts = [];
+      const isSun = dow === 6;
+      const isSat = dow === 5;
+      const dayDodaci = isSun ? SUNDAY_DAY_DODACI : 0;
+      dayShifts.push({
+        time: '07:00 – 19:00',
+        nextDay: null,
+        employees: LOC_FIN_EMP_PAIRS[pairIdx % LOC_FIN_EMP_PAIRS.length],
+        hours: HOURS,
+        cijena: CIJENA,
+        dodaci: dayDodaci,
+        prihod: BASE + dayDodaci,
+      });
+      pairIdx++;
+      const nextDay = d < 25 ? `${LOC_FIN_DAY_ABBR[(dow + 1) % 7]} ${d + 1}. 10.` : `pon 26. 10.`;
+      const nightDodaci = isSun ? SUNDAY_NIGHT_DODACI : (isSat ? WEEKEND_PREMIUM : NIGHT_DODACI);
+      dayShifts.push({
+        time: '19:00 – 07:00',
+        nextDay,
+        employees: LOC_FIN_EMP_PAIRS[pairIdx % LOC_FIN_EMP_PAIRS.length],
+        hours: HOURS,
+        cijena: CIJENA,
+        dodaci: nightDodaci,
+        prihod: BASE + nightDodaci,
+      });
+      pairIdx++;
+
+      days.push({
+        day: `${LOC_FIN_DAY_ABBR[dow]} ${d}. 10.`,
+        shifts: dayShifts,
+        week: weekNum,
+      });
+      if (!weeksAcc[weekNum]) weeksAcc[weekNum] = [];
+      weeksAcc[weekNum].push(d);
+      dow = (dow + 1) % 7;
+    }
+    return { days, weeksAcc };
+  };
+
+  const LOC_FIN_DATA = buildLocFinData();
+
+  const fmtLocFinEuro = (n) => n.toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+  const fmtLocFinInt  = (n) => n.toLocaleString('hr-HR');
+
+  const renderLocFinTable = () => {
+    const tbody = document.getElementById('locFinTbody');
+    if (!tbody) return;
+    const showNames = document.getElementById('locFinZapToggle')?.getAttribute('aria-checked') !== 'false';
+    const rows = [];
+    let currentWeek = null;
+    let totalShifts = 0, totalHours = 0, totalDodaci = 0, totalPrihod = 0;
+
+    LOC_FIN_DATA.days.forEach(day => {
+      if (day.week !== currentWeek) {
+        currentWeek = day.week;
+        const weekDaysCount = LOC_FIN_DATA.weeksAcc[currentWeek].length;
+        const weekShiftsCount = weekDaysCount * 2;
+        rows.push(`<tr class="loc-fin-week-band"><td colspan="7">${currentWeek}. tjedan<span class="week-meta">· ${weekShiftsCount} smjena</span></td></tr>`);
+      }
+      day.shifts.forEach((s, i) => {
+        totalShifts++;
+        totalHours += s.hours;
+        totalDodaci += s.dodaci;
+        totalPrihod += s.prihod;
+        const zapText = showNames ? s.employees.join(', ') : `${s.employees.length} zaposlenika`;
+        const zapClass = showNames ? 'zap-cell' : 'zap-cell hidden-names';
+        const dodaciTxt = s.dodaci > 0 ? fmtLocFinEuro(s.dodaci) : '–';
+        const dodaciClass = s.dodaci > 0 ? 'num dodaci-cell' : 'num dodaci-cell empty';
+        rows.push(`
+          <tr>
+            <td class="day-cell${i === 0 ? '' : ' cont'}">${day.day}</td>
+            <td class="vrijeme-cell">${s.time}${s.nextDay ? `<span class="next-day">(${s.nextDay})</span>` : ''}</td>
+            <td class="${zapClass}">${zapText}</td>
+            <td class="num">${s.hours} h</td>
+            <td class="cijena-cell num">${s.cijena}</td>
+            <td class="${dodaciClass}">${dodaciTxt}</td>
+            <td class="prihod-cell num">${fmtLocFinEuro(s.prihod)}</td>
+          </tr>
+        `);
+      });
+    });
+
+    tbody.innerHTML = rows.join('');
+
+    const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+    setText('locFinTotalShifts', `${totalShifts} smjena`);
+    setText('locFinTotalHours',  `${fmtLocFinInt(totalHours)} h`);
+    setText('locFinTotalDodaci', fmtLocFinEuro(totalDodaci));
+    setText('locFinTotalPrihod', fmtLocFinEuro(totalPrihod));
+  };
+
+  renderLocFinTable();
+
+  document.getElementById('locFinZapToggle')?.addEventListener('click', (e) => {
+    const sw = e.currentTarget;
+    const now = sw.getAttribute('aria-checked') === 'true';
+    sw.setAttribute('aria-checked', now ? 'false' : 'true');
+    renderLocFinTable();
+  });
 
   // ---- Zaposlenici tab (mock lista + tablica) ----
   const ZAPOSLENICI_NAMES = ['Nikola Knezevic','Goran Knezevic','Ivana Knezevic','Luka Vukovic','Nikola Vukovic','Goran Vukovic','Nika Vukovic','Luka Mandic','Nikola Mandic','Martina Mandic','Nika Mandic','Luka Blazevic','Ivana Blazevic'];
@@ -12786,6 +13783,342 @@
     const label = b.dataset.period === 'prev-mj' ? 'Kolovoz, 2026' : b.dataset.period === 'tj' ? 'Ovaj tjedan (14.–20. 09.)' : 'Rujan, 2026';
     document.getElementById('dashFinPeriodLabel').textContent = label;
   });
+
+  // ================ DOKUMENTI ================
+  const DOK_ROWS = [
+    { name: 'Izvještaj financija — rujan 2026.pdf',       size: 342 * 1024,  cat: 'izvjestaji', ext: 'pdf', date: '2026-10-02', uploader: 'Jelena Njegovan',  uplCls: 'p1' },
+    { name: 'Izvještaj financija — kolovoz 2026.pdf',     size: 318 * 1024,  cat: 'izvjestaji', ext: 'pdf', date: '2026-09-04', uploader: 'Jelena Njegovan',  uplCls: 'p1' },
+    { name: 'Ugovor Arena Centar Zagreb.pdf',             size: 1_240 * 1024, cat: 'ugovori',   ext: 'pdf', date: '2026-08-18', uploader: 'Domagoj Kovač',   uplCls: 'p2' },
+    { name: 'Ugovor Joker Centar.docx',                   size: 86 * 1024,   cat: 'ugovori',   ext: 'docx', date: '2026-08-12', uploader: 'Domagoj Kovač',   uplCls: 'p2' },
+    { name: 'Prisutnost zaposlenika Q3 2026.xlsx',        size: 94 * 1024,   cat: 'izvjestaji', ext: 'xlsx', date: '2026-10-01', uploader: 'Jelena Njegovan',  uplCls: 'p1' },
+    { name: 'NFC skeniranja — rujan.xlsx',                size: 42 * 1024,   cat: 'izvjestaji', ext: 'xlsx', date: '2026-10-01', uploader: 'Branimir Akšamović', uplCls: 'p3' },
+    { name: 'Ugovor Tower Center Rijeka — aneks.pdf',     size: 212 * 1024,  cat: 'ugovori',   ext: 'pdf', date: '2026-07-29', uploader: 'Domagoj Kovač',   uplCls: 'p2' },
+    { name: 'Fotografija NFC taga — Jankomir ulaz.jpg',   size: 1_820 * 1024, cat: 'ostalo',    ext: 'jpg', date: '2026-07-14', uploader: 'Branimir Akšamović', uplCls: 'p3' },
+  ];
+
+  const DOK_CAT_LABEL = { izvjestaji: 'Izvještaji', ugovori: 'Ugovori', ostalo: 'Ostalo' };
+  const EXT_TO_KIND = {
+    pdf: 'pdf',
+    xls: 'xls', xlsx: 'xls', csv: 'xls',
+    doc: 'doc', docx: 'doc',
+    jpg: 'img', jpeg: 'img', png: 'img', gif: 'img', webp: 'img',
+  };
+
+  const fmtFileSize = (bytes) => {
+    if (bytes < 1024) return bytes + ' B';
+    const kb = bytes / 1024;
+    if (kb < 1024) return (kb < 10 ? kb.toFixed(1) : Math.round(kb)) + ' KB';
+    const mb = kb / 1024;
+    return (mb < 10 ? mb.toFixed(1) : Math.round(mb)) + ' MB';
+  };
+
+  const fmtDokDate = (iso) => {
+    const [y, m, d] = iso.split('-');
+    return `${d}.${m}.${y.slice(2)}.`;
+  };
+
+  const fileTypeLabel = (ext) => (ext || '').toUpperCase().slice(0, 4);
+
+  let dokFilter = { search: '', cat: 'all' };
+
+  const renderDokumenti = () => {
+    const tbody = document.getElementById('dokTbody');
+    const empty = document.getElementById('dokEmpty');
+    if (!tbody) return;
+
+    const all = DOK_ROWS.length;
+    const byCat = { izvjestaji: 0, ugovori: 0, ostalo: 0 };
+    DOK_ROWS.forEach(r => { byCat[r.cat]++; });
+    const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+    setText('dokCountAll', all);
+    setText('dokCountIzv', byCat.izvjestaji);
+    setText('dokCountUg',  byCat.ugovori);
+    setText('dokCountOst', byCat.ostalo);
+
+    const q = (dokFilter.search || '').trim().toLowerCase();
+    let rows = DOK_ROWS.filter(r =>
+      (dokFilter.cat === 'all' || r.cat === dokFilter.cat) &&
+      (!q || r.name.toLowerCase().includes(q) || r.uploader.toLowerCase().includes(q))
+    );
+
+    if (rows.length === 0) {
+      tbody.innerHTML = '';
+      if (empty) empty.hidden = false;
+    } else {
+      if (empty) empty.hidden = true;
+      tbody.innerHTML = rows.map(r => {
+        const kind = EXT_TO_KIND[r.ext] || 'other';
+        return `
+          <tr>
+            <td>
+              <div class="dok-cell-name">
+                <span class="dok-file-ic ${kind}">${fileTypeLabel(r.ext)}</span>
+                <div class="dok-name-block">
+                  <strong title="${r.name}">${r.name}</strong>
+                  <span class="meta">${r.ext.toUpperCase()} · ${fmtFileSize(r.size)}</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="dok-cat-tag" data-cat="${r.cat}">${DOK_CAT_LABEL[r.cat]}</span></td>
+            <td class="dok-size">${fmtFileSize(r.size)}</td>
+            <td>
+              <span class="dok-uploader">
+                <span class="avi ${r.uplCls}">${r.uploader.split(' ').map(w => w[0]).slice(0,2).join('')}</span>
+                ${r.uploader}
+              </span>
+            </td>
+            <td class="cell-date">${fmtDokDate(r.date)}</td>
+            <td class="th-actions">
+              <div class="row-actions">
+                <button class="icon-btn-tooltip" type="button" data-tooltip="Preuzmi" aria-label="Preuzmi">${icon('download', 16)}</button>
+                <button class="icon-btn-tooltip" type="button" data-tooltip="Uredi" data-edit-dok="${r.name}" aria-label="Uredi">${icon('pencil', 16)}</button>
+                <button class="icon-btn-tooltip danger" type="button" data-tooltip="Izbriši" data-del-dok="${r.name}" aria-label="Izbriši">${icon('trash', 16)}</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    setText('dokVisible', rows.length === 0 ? '0' : `1 – ${rows.length}`);
+    setText('dokTotal', rows.length);
+  };
+
+  document.getElementById('dokSearch')?.addEventListener('input', (e) => {
+    dokFilter.search = e.target.value;
+    renderDokumenti();
+  });
+  document.getElementById('dokCatChips')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-dok-cat]');
+    if (!btn) return;
+    dokFilter.cat = btn.dataset.dokCat;
+    document.querySelectorAll('#dokCatChips .dok-chip').forEach(c => {
+      c.classList.toggle('active', c === btn);
+      c.setAttribute('aria-selected', c === btn ? 'true' : 'false');
+    });
+    renderDokumenti();
+  });
+
+  // ---- Upload drawer ----
+  let dokPending = []; // { file: File, cat: 'izvjestaji' }
+
+  const openDokDrawer = () => {
+    dokPending = [];
+    document.getElementById('dokFileInput').value = '';
+    renderDokUploadList();
+    document.getElementById('dokOverlay').classList.add('open');
+    document.getElementById('dokDrawer').classList.add('open');
+    document.getElementById('dokDrawer').setAttribute('aria-hidden', 'false');
+  };
+  const closeDokDrawer = () => {
+    document.getElementById('dokOverlay').classList.remove('open');
+    document.getElementById('dokDrawer').classList.remove('open');
+    document.getElementById('dokDrawer').setAttribute('aria-hidden', 'true');
+  };
+
+  const renderDokUploadList = () => {
+    const listEl = document.getElementById('dokUploadList');
+    const group = document.getElementById('dokUploadListGroup');
+    const count = document.getElementById('dokUploadCount');
+    const saveBtn = document.getElementById('dokDrawerSave');
+    if (!listEl) return;
+    count.textContent = dokPending.length;
+    group.hidden = dokPending.length === 0;
+    saveBtn.disabled = dokPending.length === 0;
+    listEl.innerHTML = dokPending.map((p, i) => {
+      const ext = (p.file.name.split('.').pop() || '').toLowerCase();
+      const kind = EXT_TO_KIND[ext] || 'other';
+      return `
+        <div class="dok-upload-item">
+          <span class="dok-file-ic ${kind}">${fileTypeLabel(ext)}</span>
+          <div class="dok-upload-item-body">
+            <div class="dok-upload-item-name">
+              <span class="name" title="${p.file.name}">${p.file.name}</span>
+              <span class="size">${fmtFileSize(p.file.size)}</span>
+            </div>
+            <div class="dok-upload-item-cat">
+              <label style="color: var(--text-caption); font-size: 12.5px">Kategorija:</label>
+              <select class="form-field" data-dok-pending-cat="${i}" style="padding: 5px 10px; font-size: 12.5px; min-height: 0">
+                <option value="izvjestaji" ${p.cat === 'izvjestaji' ? 'selected' : ''}>Izvještaji</option>
+                <option value="ugovori"    ${p.cat === 'ugovori'    ? 'selected' : ''}>Ugovori</option>
+                <option value="ostalo"     ${p.cat === 'ostalo'     ? 'selected' : ''}>Ostalo</option>
+              </select>
+            </div>
+          </div>
+          <button class="dok-upload-remove" type="button" data-dok-pending-remove="${i}" aria-label="Ukloni">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+      `;
+    }).join('');
+  };
+
+  const guessCatFromName = (name) => {
+    const n = name.toLowerCase();
+    if (/ugovor|contract|aneks/.test(n)) return 'ugovori';
+    if (/izvje[sš]taj|report|prisutnost|skeniranja|financij|q[1-4]/.test(n)) return 'izvjestaji';
+    return 'ostalo';
+  };
+
+  const addDokFiles = (fileList) => {
+    Array.from(fileList).forEach(f => {
+      dokPending.push({ file: f, cat: guessCatFromName(f.name) });
+    });
+    renderDokUploadList();
+  };
+
+  document.getElementById('btnDodajDok')?.addEventListener('click', openDokDrawer);
+  document.getElementById('dokDrawerClose')?.addEventListener('click', closeDokDrawer);
+  document.getElementById('dokDrawerCancel')?.addEventListener('click', closeDokDrawer);
+  document.getElementById('dokOverlay')?.addEventListener('click', closeDokDrawer);
+
+  document.getElementById('dokDropzone')?.addEventListener('click', (e) => {
+    if (e.target.closest('#dokBrowseLink')) return; // link handles its own
+    document.getElementById('dokFileInput').click();
+  });
+  document.getElementById('dokBrowseLink')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('dokFileInput').click();
+  });
+  document.getElementById('dokFileInput')?.addEventListener('change', (e) => {
+    addDokFiles(e.target.files);
+    e.target.value = '';
+  });
+
+  const dz = document.getElementById('dokDropzone');
+  if (dz) {
+    ['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, (e) => {
+      e.preventDefault(); e.stopPropagation();
+      dz.classList.add('dragover');
+    }));
+    ['dragleave','drop'].forEach(ev => dz.addEventListener(ev, (e) => {
+      e.preventDefault(); e.stopPropagation();
+      dz.classList.remove('dragover');
+    }));
+    dz.addEventListener('drop', (e) => {
+      if (e.dataTransfer?.files?.length) addDokFiles(e.dataTransfer.files);
+    });
+  }
+
+  document.getElementById('dokUploadList')?.addEventListener('change', (e) => {
+    const sel = e.target.closest('[data-dok-pending-cat]');
+    if (!sel) return;
+    const i = Number(sel.dataset.dokPendingCat);
+    dokPending[i].cat = sel.value;
+  });
+  document.getElementById('dokUploadList')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-dok-pending-remove]');
+    if (!btn) return;
+    const i = Number(btn.dataset.dokPendingRemove);
+    dokPending.splice(i, 1);
+    renderDokUploadList();
+  });
+
+  document.getElementById('dokDrawerSave')?.addEventListener('click', () => {
+    const today = new Date().toISOString().slice(0, 10);
+    dokPending.forEach(p => {
+      const ext = (p.file.name.split('.').pop() || '').toLowerCase();
+      DOK_ROWS.unshift({
+        name: p.file.name,
+        size: p.file.size,
+        cat: p.cat,
+        ext,
+        date: today,
+        uploader: 'Jelena Njegovan',
+        uplCls: 'p1',
+      });
+    });
+    renderDokumenti();
+    closeDokDrawer();
+  });
+
+  // ---- Edit drawer ----
+  let dokEditing = null; // reference to row in DOK_ROWS
+
+  const splitNameExt = (fullName) => {
+    const idx = fullName.lastIndexOf('.');
+    if (idx <= 0) return { base: fullName, ext: '' };
+    return { base: fullName.slice(0, idx), ext: fullName.slice(idx + 1) };
+  };
+
+  const dokInitials = (s) => s.split(' ').map(w => w[0]).slice(0, 2).join('');
+
+  const openDokEditDrawer = (row) => {
+    if (!row) return;
+    dokEditing = row;
+    const kind = EXT_TO_KIND[row.ext] || 'other';
+    const { base } = splitNameExt(row.name);
+
+    document.getElementById('dokEditFileCard').innerHTML = `
+      <span class="dok-file-ic ${kind}">${fileTypeLabel(row.ext)}</span>
+      <div class="info">
+        <span class="nm" title="${row.name}">${row.name}</span>
+        <span class="meta">
+          <span>${row.ext.toUpperCase()} · ${fmtFileSize(row.size)}</span>
+          <span class="sep">·</span>
+          <span class="by"><span class="avi ${row.uplCls}">${dokInitials(row.uploader)}</span>${row.uploader}</span>
+          <span class="sep">·</span>
+          <span>${fmtDokDate(row.date)}</span>
+        </span>
+      </div>
+    `;
+    document.getElementById('dokEditName').value = base;
+    document.getElementById('dokEditExtName').textContent = '.' + row.ext;
+    document.getElementById('dokEditCat').value = row.cat;
+
+    document.getElementById('dokEditOverlay').classList.add('open');
+    document.getElementById('dokEditDrawer').classList.add('open');
+    document.getElementById('dokEditDrawer').setAttribute('aria-hidden', 'false');
+  };
+  const closeDokEditDrawer = () => {
+    document.getElementById('dokEditOverlay').classList.remove('open');
+    document.getElementById('dokEditDrawer').classList.remove('open');
+    document.getElementById('dokEditDrawer').setAttribute('aria-hidden', 'true');
+    dokEditing = null;
+  };
+
+  document.getElementById('dokEditDrawerClose')?.addEventListener('click', closeDokEditDrawer);
+  document.getElementById('dokEditCancel')?.addEventListener('click', closeDokEditDrawer);
+  document.getElementById('dokEditOverlay')?.addEventListener('click', closeDokEditDrawer);
+
+  document.getElementById('dokEditSave')?.addEventListener('click', () => {
+    if (!dokEditing) return;
+    const newBase = document.getElementById('dokEditName').value.trim();
+    const newCat = document.getElementById('dokEditCat').value;
+    if (!newBase) return;
+    dokEditing.name = `${newBase}.${dokEditing.ext}`;
+    dokEditing.cat = newCat;
+    renderDokumenti();
+    closeDokEditDrawer();
+  });
+
+  document.getElementById('dokEditDelete')?.addEventListener('click', () => {
+    if (!dokEditing) return;
+    const idx = DOK_ROWS.indexOf(dokEditing);
+    if (idx >= 0) DOK_ROWS.splice(idx, 1);
+    renderDokumenti();
+    closeDokEditDrawer();
+  });
+
+  // Wire pencil + trash icons on dokumenti table
+  document.getElementById('dokTbody')?.addEventListener('click', (e) => {
+    const editBtn = e.target.closest('[data-edit-dok]');
+    if (editBtn) {
+      const row = DOK_ROWS.find(r => r.name === editBtn.dataset.editDok);
+      if (row) openDokEditDrawer(row);
+      return;
+    }
+    const delBtn = e.target.closest('[data-del-dok]');
+    if (delBtn) {
+      const idx = DOK_ROWS.findIndex(r => r.name === delBtn.dataset.delDok);
+      if (idx >= 0) {
+        DOK_ROWS.splice(idx, 1);
+        renderDokumenti();
+      }
+    }
+  });
+
+  renderDokumenti();
 
   // ---- Sidebar page routing ----
   const setPage = (page) => {
