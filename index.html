@@ -5344,6 +5344,71 @@
   .settings-info-note > svg { color: var(--text-primary); flex-shrink: 0; margin-top: 2px; }
   .settings-info-note strong { color: var(--text-primary); font-weight: 700; }
 
+  /* === Postavke → Organizacija: logo field === */
+  .org-form {
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .org-field {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .org-field-head {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .org-field-head .form-label { text-transform: none; letter-spacing: 0; font-size: 13.5px; color: var(--text-body); font-weight: 500; }
+  .org-field-hint {
+    color: var(--text-caption); font-size: 12.5px; line-height: 16px;
+  }
+  .org-logo-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 16px;
+    background: var(--surface-default);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-m);
+  }
+  .org-logo-preview {
+    width: 200px; height: 96px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-s);
+    background: var(--surface-muted);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .org-logo-preview img {
+    max-width: calc(100% - 24px);
+    max-height: calc(100% - 24px);
+    object-fit: contain;
+    display: block;
+  }
+  .org-logo-placeholder {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--text-body);
+    letter-spacing: -0.3px;
+  }
+  .org-logo-placeholder::first-letter {
+    color: var(--text-caption);
+    margin-right: 2px;
+  }
+  .org-logo-actions {
+    display: flex; flex-direction: column; gap: 12px;
+    min-width: 0;
+  }
+  .org-logo-buttons {
+    display: inline-flex; align-items: center; gap: 8px;
+    flex-wrap: wrap;
+  }
+  .org-logo-formats {
+    color: var(--text-caption); font-size: 12px; line-height: 16px;
+  }
+  /* Hide Ukloni when no custom logo (showing default placeholder) */
+  .org-logo-preview.has-default + .org-logo-actions #btnOrgLogoRemove { display: none; }
+
   /* Nova oznaka drawer — preview + color swatches */
   .oznaka-preview {
     display: flex; align-items: center;
@@ -5751,9 +5816,31 @@
   .zaposlenici-table th:nth-child(6) { width: auto; }
 
   /* Kontrolne točke — Naziv | Dodano | 3 akcije */
-  .tocke-table th:nth-child(1) { width: 220px; }
-  .tocke-table th:nth-child(2) { width: 220px; }
+  .tocke-table th:nth-child(1) { width: 180px; }
+  .tocke-table th:nth-child(2) { width: 200px; }
   .tocke-table th:nth-child(3) { width: auto; }
+  .tocke-table th:nth-child(4) { width: 170px; }
+  .tocke-table .tocka-name { color: var(--text-body); font-weight: 500; font-size: 14px; }
+  .tocke-table .tocka-serial {
+    display: inline-block;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+    font-size: 12.5px;
+    color: var(--text-body);
+    background: var(--surface-muted);
+    padding: 3px 10px;
+    border-radius: var(--r-xs);
+    letter-spacing: 0.3px;
+    font-variant-numeric: tabular-nums;
+  }
+  .tocke-table .tocka-loc { color: var(--text-body); font-size: 13.5px; }
+  .tocke-table .tocka-loc .muted { color: var(--text-caption); font-style: italic; }
+  .tocke-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+    min-height: 42px;
+  }
+  .tocke-head .table-caption { margin: 0; display: flex; align-items: center; }
   .tocke-table .cell-actions { padding-left: 80px; padding-right: 20px; }
 
   /* Danger outline button (Arhiviraj u detail header) */
@@ -6083,7 +6170,129 @@
   .btn-text:hover { background: var(--surface-hover); color: var(--text-body); }
 
   /* Izvoz financija modal — expanded confirm-dialog */
-  .confirm-dialog.export-dialog { width: 620px; max-height: calc(100vh - 80px); }
+  .confirm-dialog.export-dialog { width: 540px; max-height: calc(100vh - 80px); }
+  .export-entity-seg { align-self: stretch; }
+  .export-entity-seg button { flex: 1; padding: 0 12px; }
+  .export-scope-menu {
+    max-height: 320px;
+    width: 100%;
+    overflow-y: auto;
+    padding: 4px;
+  }
+  .export-scope-menu .scope-search {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-subtle);
+    margin: -4px -4px 4px;
+    position: sticky; top: -4px;
+    background: var(--surface-default);
+    z-index: 1;
+  }
+  .export-scope-menu .scope-search svg { color: var(--icon-muted); flex-shrink: 0; }
+  .export-scope-menu .scope-search input {
+    flex: 1; border: none; outline: none;
+    font-size: 13px; color: var(--text-body);
+    background: transparent;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+  .export-scope-menu .scope-search input::placeholder { color: var(--text-placeholder); }
+  .export-scope-menu .scope-sep {
+    height: 1px; background: var(--border-subtle);
+    margin: 4px 0;
+  }
+  .export-scope-menu button.scope-item {
+    display: flex; align-items: center; gap: 8px;
+    width: 100%; padding: 8px 10px;
+    background: none; border: none; cursor: pointer;
+    text-align: left;
+    font-size: 13.5px; color: var(--text-body);
+    border-radius: var(--r-xs);
+  }
+  .export-scope-menu button.scope-item:hover { background: var(--surface-hover); }
+  .export-scope-menu button.scope-item.selected {
+    background: var(--surface-primary-ghost, #FFF4EA);
+    color: var(--brand-primary, #F47C26);
+    font-weight: 500;
+  }
+  .export-scope-menu button.scope-item .check {
+    width: 14px; height: 14px; flex-shrink: 0; margin-left: auto;
+    opacity: 0;
+    color: var(--brand-primary, #F47C26);
+  }
+  .export-scope-menu button.scope-item.selected .check { opacity: 1; }
+  .export-scope-menu button.scope-item.all { font-weight: 500; }
+  .export-scope-menu .scope-empty {
+    padding: 16px; text-align: center;
+    color: var(--text-caption); font-size: 13px;
+  }
+
+  /* Save-to-Dokumente confirm step */
+  .export-save-body { padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 18px; }
+  .save-doc-preview {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    background: var(--surface-primary-ghost, #FFF4EA);
+    border: 1px solid rgba(242,101,0,0.15);
+    border-radius: var(--r-s);
+  }
+  .save-doc-preview .dok-file-ic { width: 40px; height: 48px; font-size: 9px; }
+  .save-doc-meta { display: flex; flex-direction: column; gap: 4px; }
+  .save-doc-title { color: var(--text-body); font-size: 13.5px; }
+  .save-doc-title strong { font-weight: 600; }
+  .save-doc-sub { color: var(--text-caption); font-size: 12.5px; }
+
+  /* Toast system */
+  .toast-container {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex; flex-direction: column; gap: 8px;
+    pointer-events: none;
+  }
+  .toast {
+    background: #1F1A14;
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: var(--r-s);
+    box-shadow: 0 8px 24px rgba(30,31,33,0.24);
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 13.5px;
+    font-weight: 500;
+    min-width: 280px;
+    max-width: 460px;
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast .toast-ic {
+    width: 20px; height: 20px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: #4a9f6f;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .toast .toast-text { flex: 1; }
+  .toast .toast-action {
+    background: none; border: none; cursor: pointer;
+    color: var(--brand-primary, #F47C26);
+    font-weight: 500; font-size: 13.5px;
+    padding: 2px 4px; border-radius: var(--r-xs);
+  }
+  .toast .toast-action:hover { color: #ffb37a; }
+  .toast .toast-close {
+    background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.5);
+    width: 20px; height: 20px;
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-left: 2px;
+  }
+  .toast .toast-close:hover { color: #fff; }
   .confirm-dialog.export-dialog .export-body {
     overflow-y: auto;
     gap: 18px;
@@ -6695,8 +6904,8 @@
                 <span class="val"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>Listopad 2026.</span>
                 <button type="button" aria-label="Sljedeći mjesec"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
               </div>
-              <button class="fin-export-btn" type="button" id="finExportBtn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 10h5l-6 6-6-6h5V3h2v7z"/><path d="M4 20h16"/></svg>
+              <button class="btn-primary" type="button" id="finExportBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 10h5l-6 6-6-6h5V3h2v7z"/><path d="M4 20h16"/></svg>
                 Izvoz
               </button>
             </div>
@@ -6768,12 +6977,20 @@
           </div>
         </div>
         <div class="tab-panel" data-panel="tocke" hidden>
-          <div class="table-caption"><strong>12 kontrolnih točaka</strong> · na lokaciji</div>
+          <div class="tocke-head">
+            <div class="table-caption"><strong><span id="tockeCount">12</span> kontrolnih točaka</strong> · na lokaciji</div>
+            <button class="btn-primary" type="button" id="btnDodajTocku">
+              <i data-ic="add" data-ic-size="16"></i>
+              Dodaj kontrolnu točku
+            </button>
+          </div>
           <div class="table-wrap">
             <table class="ds-table tocke-table">
               <thead>
                 <tr>
                   <th class="th-sortable">Naziv <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10l5-5 5 5M7 14l5 5 5-5"/></svg></th>
+                  <th>Serijski broj</th>
+                  <th>Lokacija unutar objekta</th>
                   <th class="th-sortable">Dodano <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10l5-5 5 5M7 14l5 5 5-5"/></svg></th>
                   <th class="th-actions"></th>
                 </tr>
@@ -7669,10 +7886,37 @@
             <header class="settings-panel-head">
               <div>
                 <h2>Organizacija</h2>
-                <p class="settings-panel-lead">Osnovni podaci o organizaciji.</p>
+                <p class="settings-panel-lead">Osnovni podaci koji se koriste u sustavu i na izvezenim dokumentima.</p>
               </div>
             </header>
-            <div class="tab-placeholder" style="border-radius:var(--r-s)">Organizacijske postavke — u pripremi.</div>
+
+            <div class="org-form">
+              <div class="org-field">
+                <div class="org-field-head">
+                  <span class="form-label">Logo organizacije</span>
+                  <span class="org-field-hint">Prikazuje se na izvezenim reportovima i dokumentima.</span>
+                </div>
+                <div class="org-logo-row">
+                  <div class="org-logo-preview has-default" id="orgLogoPreview" aria-label="Preview loga">
+                    <span class="org-logo-placeholder">— kord</span>
+                  </div>
+                  <div class="org-logo-actions">
+                    <div class="org-logo-buttons">
+                      <button class="btn-secondary" type="button" id="btnOrgLogoUpload">
+                        <i data-ic="upload" data-ic-size="14"></i>
+                        <span id="orgLogoUploadLabel">Zamijeni logo</span>
+                      </button>
+                      <button class="btn-danger-link" type="button" id="btnOrgLogoRemove">
+                        <i data-ic="trash" data-ic-size="14"></i>
+                        Ukloni
+                      </button>
+                      <input type="file" id="orgLogoInput" accept="image/png,image/jpeg,image/svg+xml" hidden>
+                    </div>
+                    <div class="org-logo-formats">PNG, JPG ili SVG · maks. 2 MB · preporučeno 400 × 120 px (horizontalno)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
           <!-- Panel: Pristup i autentifikacija -->
@@ -8244,6 +8488,57 @@
     <div class="spacer"></div>
     <button class="btn-secondary" type="button" id="novaOznDrawerCancel">Odustani</button>
     <button class="btn-primary" type="button" id="novaOznDrawerSave">Spremi</button>
+  </footer>
+</aside>
+
+<!-- Nova / Uredi kontrolna točka drawer -->
+<div class="drawer-overlay" id="novaTockaOverlay" aria-hidden="true"></div>
+<aside class="drawer" id="novaTockaDrawer" role="dialog" aria-modal="true" aria-labelledby="novaTockaDrawerTitle" aria-hidden="true">
+  <header class="drawer-header">
+    <div class="drawer-title">
+      <h2 id="novaTockaDrawerTitle">Dodaj kontrolnu točku</h2>
+    </div>
+    <button class="drawer-close" type="button" aria-label="Zatvori" id="novaTockaDrawerClose">
+      <i data-ic="close" data-ic-size="18"></i>
+    </button>
+  </header>
+
+  <div class="drawer-body">
+    <div class="form-group">
+      <label class="form-label" for="novaTockaName">Naziv točke <span class="req">*</span></label>
+      <div class="form-input-wrap">
+        <input type="text" id="novaTockaName" placeholder="npr. Ulaz, Portirnica, Nadzorna soba" maxlength="60">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="novaTockaSerial">Serijski broj <span class="req">*</span></label>
+      <div class="form-input-wrap">
+        <input type="text" id="novaTockaSerial" placeholder="npr. 04:A3:BC:2D:5E:7F" maxlength="40" style="font-family: 'SF Mono', 'Monaco', 'Menlo', monospace; letter-spacing: 0.3px">
+      </div>
+      <div class="field-hint">
+        <i data-ic="info" data-ic-size="14"></i>
+        <span>Na mobilnom uređaju serijski broj se dodaje NFC skeniranjem on-site.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="novaTockaLoc">Lokacija unutar objekta</label>
+      <div class="form-input-wrap">
+        <input type="text" id="novaTockaLoc" placeholder="npr. 2. kat – soba 24" maxlength="80">
+      </div>
+      <div class="field-hint-sm" style="color: var(--text-caption)">Opcionalno — pomaže radnicima da brže pronađu tag.</div>
+    </div>
+  </div>
+
+  <footer class="drawer-footer">
+    <button class="btn-text danger" type="button" id="novaTockaDrawerDelete" hidden>
+      <i data-ic="trash" data-ic-size="14"></i>
+      Izbriši
+    </button>
+    <div class="spacer"></div>
+    <button class="btn-secondary" type="button" id="novaTockaDrawerCancel">Odustani</button>
+    <button class="btn-primary" type="button" id="novaTockaDrawerSave">Spremi</button>
   </footer>
 </aside>
 
@@ -9448,11 +9743,12 @@
     </button>
   </header>
 
-  <div class="confirm-dialog-body export-body">
+  <div class="confirm-dialog-body export-body" id="exportBodyMain">
     <div class="form-group">
       <label class="form-label">Format</label>
       <div class="segmented" id="exportFormat">
         <button type="button" aria-pressed="true" data-format="pdf">PDF</button>
+        <button type="button" aria-pressed="false" data-format="xlsx">Excel</button>
         <button type="button" aria-pressed="false" data-format="csv">CSV</button>
       </div>
     </div>
@@ -9476,28 +9772,43 @@
     </div>
 
     <div class="form-group">
-      <label class="form-label">Što izvesti</label>
-      <div class="tab-bar export-entity-tabs" id="exportEntityTabs">
-        <button type="button" class="tab-btn active" data-entity="lokacije">Lokacije <span class="tab-count" id="expCntLok">14</span></button>
-        <button type="button" class="tab-btn" data-entity="dogadjaji">Događaji <span class="tab-count" id="expCntDog">5</span></button>
-        <button type="button" class="tab-btn" data-entity="zaposlenici">Zaposlenici <span class="tab-count" id="expCntZap">10</span></button>
-      </div>
-      <div class="export-picker">
-        <div class="export-picker-toolbar">
-          <div class="search-field">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-            <input type="text" placeholder="Pretraži…" id="exportSearch">
-          </div>
-          <button type="button" class="link-btn" id="exportSelectAll">Odaberi sve</button>
-        </div>
-        <div class="export-picker-list" id="exportList" role="listbox" aria-multiselectable="true"></div>
-        <div class="export-picker-footer">
-          <span id="exportSelectedCount">0 od 0 odabrano</span>
-        </div>
+      <label class="form-label">Vrsta izvještaja</label>
+      <div class="segmented export-entity-seg" id="exportEntityTabs">
+        <button type="button" aria-pressed="true" data-entity="lokacije">Lokacije</button>
+        <button type="button" aria-pressed="false" data-entity="dogadjaji">Događaji</button>
+        <button type="button" aria-pressed="false" data-entity="zaposlenici">Zaposlenici</button>
       </div>
     </div>
 
-    <div class="section-row export-inactive-row">
+    <div class="form-group">
+      <label class="form-label" id="exportScopeLabel">Opseg</label>
+      <div class="dropdown" id="ddExportScope">
+        <button class="field-dropdown" type="button" style="width:100%; justify-content:space-between">
+          <span style="display:inline-flex; align-items:center; gap:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg>
+            <span data-label>Sve lokacije</span>
+          </span>
+          <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="dropdown-menu export-scope-menu" id="exportScopeMenu"></div>
+      </div>
+    </div>
+
+    <div class="form-group" id="exportPodrGroup">
+      <label class="form-label">Podružnica</label>
+      <div class="dropdown" id="ddExportPodr">
+        <button class="field-dropdown" type="button" style="width:100%; justify-content:space-between">
+          <span style="display:inline-flex; align-items:center; gap:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V5a1 1 0 011-1h5v4h11a1 1 0 011 1v10a1 1 0 01-1 1h-7"/><path d="M12 20H4a1 1 0 01-1-1v-7"/></svg>
+            <span data-label>Sve podružnice</span>
+          </span>
+          <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="dropdown-menu" id="exportPodrMenu"></div>
+      </div>
+    </div>
+
+    <div class="section-row export-inactive-row" id="exportInactiveRow">
       <div class="row-text">
         <strong>Uključi neaktivne</strong>
         <span>Prikazuje i one bez ijedne smjene u razdoblju, s nulama.</span>
@@ -9511,14 +9822,58 @@
     </div>
   </div>
 
-  <footer class="confirm-dialog-footer">
+  <!-- Save-to-Dokumente confirm step (hidden by default) -->
+  <div class="confirm-dialog-body export-save-body" id="exportBodySave" hidden>
+    <div class="save-doc-preview">
+      <span class="dok-file-ic pdf" id="saveDocIc">PDF</span>
+      <div class="save-doc-meta">
+        <div class="save-doc-title">Dokument će biti spremljen u <strong>Dokumente</strong>.</div>
+        <div class="save-doc-sub">Dostupan u modulu <em>Dokumenti</em> svim korisnicima s pristupom.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="saveDocName">Naziv dokumenta <span class="req">*</span></label>
+      <div class="form-input-wrap">
+        <input type="text" id="saveDocName" placeholder="Financije – Rujan 2026">
+      </div>
+      <div class="field-hint-sm" id="saveDocExtHint">Ekstenzija (<span id="saveDocExtName">.pdf</span>) dodaje se automatski.</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="saveDocCat">Kategorija</label>
+      <select class="form-field" id="saveDocCat">
+        <option value="izvjestaji" selected>Izvještaji</option>
+        <option value="ugovori">Ugovori</option>
+        <option value="ostalo">Ostalo</option>
+      </select>
+    </div>
+  </div>
+
+  <footer class="confirm-dialog-footer" id="exportFooterMain">
     <button class="btn-text" type="button" id="exportCancel">Odustani</button>
-    <button class="btn-primary" type="button" id="exportDownload" disabled>
+    <div style="flex:1"></div>
+    <button class="btn-secondary" type="button" id="exportSaveDocs">
+      <i data-ic="folder" data-ic-size="14"></i>
+      Spremi u Dokumente
+    </button>
+    <button class="btn-primary" type="button" id="exportDownload">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M5 10l7 7 7-7M4 21h16"/></svg>
       Preuzmi
     </button>
   </footer>
+  <footer class="confirm-dialog-footer" id="exportFooterSave" hidden>
+    <button class="btn-text" type="button" id="exportSaveBack">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+      Natrag
+    </button>
+    <div style="flex:1"></div>
+    <button class="btn-primary" type="button" id="exportSaveConfirm">Spremi</button>
+  </footer>
 </div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
 <div class="confirm-dialog-overlay" id="conflictOverlay" aria-hidden="true"></div>
 <div class="confirm-dialog" id="conflictDialog" role="dialog" aria-modal="true" aria-labelledby="conflictTitle" aria-hidden="true">
@@ -11842,27 +12197,111 @@
   renderZaposleniciTable();
 
   // ---- Kontrolne točke tab ----
-  const TOCKE = ['Arhiva','Garderoba','Generator','Izlaz','Kotlovnica','Nadzorna soba','Portirnica','Praonica','Prvi kat','Strojarnica','Ulaz','Ventilacija'];
-  const iconMapPin = icon('building', 16);
+  const TOCKE = [
+    { name: 'Ulaz',          serial: '04:A3:BC:2D:5E:7F', loc: 'Prizemlje – glavni ulaz', added: '2026-04-02' },
+    { name: 'Izlaz',         serial: '04:B8:12:5C:91:E2', loc: 'Prizemlje – stražnji izlaz', added: '2026-04-02' },
+    { name: 'Portirnica',    serial: '04:7D:19:A4:42:11', loc: 'Prizemlje', added: '2026-04-02' },
+    { name: 'Nadzorna soba', serial: '04:C2:88:4F:3B:0E', loc: 'Prvi kat', added: '2026-04-05' },
+    { name: 'Arhiva',        serial: '04:91:55:3E:B2:7A', loc: 'Suteren – prostorija 03', added: '2026-04-08' },
+    { name: 'Garderoba',     serial: '04:5F:72:1C:EE:94', loc: 'Suteren', added: '2026-04-08' },
+    { name: 'Kotlovnica',    serial: '04:28:AA:66:D1:08', loc: 'Suteren', added: '2026-04-12' },
+    { name: 'Praonica',      serial: '04:3C:67:A1:94:5D', loc: 'Suteren', added: '2026-04-12' },
+    { name: 'Strojarnica',   serial: '04:0F:B5:48:72:C6', loc: 'Suteren – strojarski prostor', added: '2026-05-11' },
+    { name: 'Generator',     serial: '04:E1:36:D9:50:B7', loc: 'Vanjski prostor – iza objekta', added: '2026-05-11' },
+    { name: 'Prvi kat',      serial: '04:76:4D:2E:A3:91', loc: 'Prvi kat – hodnik', added: '2026-06-20' },
+    { name: 'Ventilacija',   serial: '04:9A:23:BF:08:4C', loc: 'Krov', added: '2026-07-14' },
+  ];
   const iconPencil = icon('pencil', 16);
   const iconTrash = icon('trash', 16);
+  const iconPencilTocka = iconPencil;
+  const iconTrashTocka = iconTrash;
+
+  const fmtTockaDate = (iso) => {
+    const [y, m, d] = iso.split('-');
+    const months = ['siječnja','veljače','ožujka','travnja','svibnja','lipnja','srpnja','kolovoza','rujna','listopada','studenog','prosinca'];
+    return `${parseInt(d, 10)}. ${months[parseInt(m, 10) - 1]} ${y}.`;
+  };
 
   const renderTockeTable = () => {
     const tbody = document.getElementById('tockeTbody');
     if (!tbody) return;
-    tbody.innerHTML = TOCKE.map(t => `
+    document.getElementById('tockeCount').textContent = TOCKE.length;
+    tbody.innerHTML = TOCKE.map((t, i) => `
       <tr>
-        <td>${t}</td>
-        <td style="color: var(--text-heading); font-variant-numeric: tabular-nums">10. rujna 2026.</td>
+        <td><strong class="tocka-name">${t.name}</strong></td>
+        <td><span class="tocka-serial">${t.serial}</span></td>
+        <td class="tocka-loc">${t.loc || '<span class="muted">—</span>'}</td>
+        <td style="color: var(--text-heading); font-variant-numeric: tabular-nums; white-space: nowrap">${fmtTockaDate(t.added)}</td>
         <td class="cell-actions">
-          <button class="icon-btn-tooltip" type="button" data-tooltip="Prikaži na karti">${iconMapPin}</button>
-          <button class="icon-btn-tooltip" type="button" data-tooltip="Uredi">${iconPencil}</button>
-          <button class="icon-btn-tooltip danger" type="button" data-tooltip="Izbriši">${iconTrash}</button>
+          <button class="icon-btn-tooltip" type="button" data-tooltip="Uredi" data-edit-tocka="${i}">${iconPencilTocka}</button>
+          <button class="icon-btn-tooltip danger" type="button" data-tooltip="Izbriši" data-del-tocka="${i}">${iconTrashTocka}</button>
         </td>
       </tr>
     `).join('');
   };
   renderTockeTable();
+
+  // ---- Nova / Uredi kontrolna točka drawer ----
+  const novaTockaOverlay = document.getElementById('novaTockaOverlay');
+  const novaTockaDrawer = document.getElementById('novaTockaDrawer');
+  let tockaEditIdx = -1;
+
+  const openNovaTockaDrawer = (idx = -1) => {
+    tockaEditIdx = idx;
+    const isEdit = idx >= 0;
+    document.getElementById('novaTockaDrawerTitle').textContent = isEdit ? 'Uredi kontrolnu točku' : 'Dodaj kontrolnu točku';
+    document.getElementById('novaTockaDrawerDelete').hidden = !isEdit;
+    const t = isEdit ? TOCKE[idx] : { name: '', serial: '', loc: '' };
+    document.getElementById('novaTockaName').value = t.name;
+    document.getElementById('novaTockaSerial').value = t.serial;
+    document.getElementById('novaTockaLoc').value = t.loc || '';
+    novaTockaOverlay.classList.add('open');
+    novaTockaDrawer.classList.add('open');
+    novaTockaDrawer.setAttribute('aria-hidden', 'false');
+    setTimeout(() => document.getElementById('novaTockaName').focus(), 60);
+  };
+  const closeNovaTockaDrawer = () => {
+    novaTockaOverlay.classList.remove('open');
+    novaTockaDrawer.classList.remove('open');
+    novaTockaDrawer.setAttribute('aria-hidden', 'true');
+    tockaEditIdx = -1;
+  };
+
+  document.getElementById('btnDodajTocku')?.addEventListener('click', () => openNovaTockaDrawer(-1));
+  document.getElementById('novaTockaDrawerClose')?.addEventListener('click', closeNovaTockaDrawer);
+  document.getElementById('novaTockaDrawerCancel')?.addEventListener('click', closeNovaTockaDrawer);
+  novaTockaOverlay.addEventListener('click', closeNovaTockaDrawer);
+
+  document.getElementById('novaTockaDrawerSave')?.addEventListener('click', () => {
+    const name = document.getElementById('novaTockaName').value.trim();
+    const serial = document.getElementById('novaTockaSerial').value.trim();
+    const loc = document.getElementById('novaTockaLoc').value.trim();
+    if (!name || !serial) return;
+    if (tockaEditIdx >= 0) {
+      TOCKE[tockaEditIdx] = { ...TOCKE[tockaEditIdx], name, serial, loc };
+    } else {
+      TOCKE.push({ name, serial, loc, added: new Date().toISOString().slice(0, 10) });
+    }
+    renderTockeTable();
+    closeNovaTockaDrawer();
+  });
+  document.getElementById('novaTockaDrawerDelete')?.addEventListener('click', () => {
+    if (tockaEditIdx >= 0) {
+      TOCKE.splice(tockaEditIdx, 1);
+      renderTockeTable();
+    }
+    closeNovaTockaDrawer();
+  });
+
+  document.getElementById('tockeTbody')?.addEventListener('click', (e) => {
+    const edit = e.target.closest('[data-edit-tocka]');
+    if (edit) { openNovaTockaDrawer(Number(edit.dataset.editTocka)); return; }
+    const del = e.target.closest('[data-del-tocka]');
+    if (del) {
+      TOCKE.splice(Number(del.dataset.delTocka), 1);
+      renderTockeTable();
+    }
+  });
 
   // ---- Zaposlenici GLAVNI page (lista) ----
   const ZAPOSLENICI_LIST = [
@@ -13033,6 +13472,45 @@
     });
   });
 
+  // ---- Postavke → Organizacija → Logo upload ----
+  (() => {
+    const previewEl = document.getElementById('orgLogoPreview');
+    const uploadBtn = document.getElementById('btnOrgLogoUpload');
+    const removeBtn = document.getElementById('btnOrgLogoRemove');
+    const uploadLabel = document.getElementById('orgLogoUploadLabel');
+    const fileInput = document.getElementById('orgLogoInput');
+    if (!previewEl || !fileInput) return;
+
+    const DEFAULT_HTML = '<span class="org-logo-placeholder">— kord</span>';
+
+    const setDefault = () => {
+      previewEl.classList.add('has-default');
+      previewEl.innerHTML = DEFAULT_HTML;
+      if (uploadLabel) uploadLabel.textContent = 'Dodaj logo';
+      if (removeBtn) removeBtn.hidden = true;
+      fileInput.value = '';
+    };
+    const setLogo = (dataUrl) => {
+      previewEl.classList.remove('has-default');
+      previewEl.innerHTML = `<img src="${dataUrl}" alt="Logo organizacije">`;
+      if (uploadLabel) uploadLabel.textContent = 'Zamijeni logo';
+      if (removeBtn) removeBtn.hidden = false;
+    };
+
+    // Initial state — showing placeholder, hide remove button
+    setDefault();
+
+    uploadBtn?.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => setLogo(ev.target.result);
+      reader.readAsDataURL(file);
+    });
+    removeBtn?.addEventListener('click', setDefault);
+  })();
+
   // ---- Postavke: Dodaj uvjet drawer ----
   const noviUvjetDrawer = document.getElementById('noviUvjetDrawer');
   const noviUvjetOverlay = document.getElementById('noviUvjetOverlay');
@@ -13085,66 +13563,159 @@
 
   // ---- Izvoz financija modal ----
   const EXPORT_ENTITIES = {
-    lokacije:    { label: 'lokacija',   entities: LOCATIONS_ROWS.map(l => l.name) },
-    dogadjaji:   { label: 'događaj',    entities: ['Adventski sajam Zagreb', 'Gala vecer Osijek', 'Ultra Split', 'Sajam knjiga', 'Sportska utakmica Rijeka'] },
-    zaposlenici: { label: 'zaposlenik', entities: ['Ivan Horvat', 'Martina Horvat', 'Nika Horvat', 'Luka Kovacevic', 'Ana Marić', 'Ivana Horvat', 'Nikola Babic', 'Luka Babic', 'Petra Kovač', 'Ivan Novak'] },
+    lokacije:    { labelOne: 'lokacija',   labelAll: 'Sve lokacije',    labelPlural: 'lokacija',   entities: LOCATIONS_ROWS.map(l => l.name) },
+    dogadjaji:   { labelOne: 'događaj',    labelAll: 'Svi događaji',    labelPlural: 'događaja',   entities: ['Adventski sajam Zagreb', 'Gala vecer Osijek', 'Ultra Split', 'Sajam knjiga', 'Sportska utakmica Rijeka'] },
+    zaposlenici: { labelOne: 'zaposlenik', labelAll: 'Svi zaposlenici', labelPlural: 'zaposlenika', entities: ['Ivan Horvat', 'Martina Horvat', 'Nika Horvat', 'Luka Kovacevic', 'Ana Marić', 'Ivana Horvat', 'Nikola Babic', 'Luka Babic', 'Petra Kovač', 'Ivan Novak'] },
   };
   const exportOverlay = document.getElementById('exportOverlay');
   const exportDialog = document.getElementById('exportDialog');
+  const EXPORT_PODR = ['Outfinum Zagreb', 'Outfinum Sjever', 'Outfinum Jug', 'Outfinum Istok'];
   let exportState = {
     format: 'pdf',
     period: 'month',
     year: 2026, month: 7,
     entity: 'lokacije',
-    selected: {}, // { entityType: Set of names }
+    scope: 'all',
+    podr: 'all',       // 'all' or podružnica name
     inactive: false,
-    query: '',
+    scopeQuery: '',
+    step: 'form',      // 'form' or 'save'
   };
 
-  const renderExportList = () => {
-    const list = document.getElementById('exportList');
-    const all = EXPORT_ENTITIES[exportState.entity].entities;
-    const sel = exportState.selected[exportState.entity] || new Set();
-    const q = exportState.query.toLowerCase();
-    const filtered = all.filter(n => !q || n.toLowerCase().includes(q));
-    if (filtered.length === 0) {
-      list.innerHTML = `<div class="export-picker-empty">Nema rezultata za "${exportState.query}"</div>`;
-    } else {
-      list.innerHTML = filtered.map(name => `
-        <label class="export-picker-item ${sel.has(name) ? 'checked' : ''}">
-          <input type="checkbox" data-item="${name}" ${sel.has(name) ? 'checked' : ''}>
-          <span>${name}</span>
-        </label>
-      `).join('');
-    }
-    document.getElementById('exportSelectedCount').textContent = `${sel.size} od ${all.length} odabrano`;
-    document.getElementById('exportSelectAll').textContent = sel.size === all.length ? 'Ukloni sve' : 'Odaberi sve';
-    document.getElementById('exportDownload').disabled = sel.size === 0;
-    // update tab counts s trenutnim selekcijama
-    ['lokacije', 'dogadjaji', 'zaposlenici'].forEach(k => {
-      const total = EXPORT_ENTITIES[k].entities.length;
-      const selN = (exportState.selected[k] || new Set()).size;
-      const badge = { lokacije: 'expCntLok', dogadjaji: 'expCntDog', zaposlenici: 'expCntZap' }[k];
-      document.getElementById(badge).textContent = selN > 0 ? `${selN}/${total}` : total;
-    });
+  const renderExportScopeMenu = () => {
+    const menu = document.getElementById('exportScopeMenu');
+    const cfg = EXPORT_ENTITIES[exportState.entity];
+    const q = (exportState.scopeQuery || '').toLowerCase();
+    const items = cfg.entities.filter(n => !q || n.toLowerCase().includes(q));
+    const checkSvg = `<svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>`;
+    const allItem = `<button type="button" class="scope-item all ${exportState.scope === 'all' ? 'selected' : ''}" data-scope="all">${cfg.labelAll}${checkSvg}</button>`;
+    const specific = items.length === 0
+      ? `<div class="scope-empty">Nema rezultata za "${exportState.scopeQuery}".</div>`
+      : items.map(name => `<button type="button" class="scope-item ${exportState.scope === name ? 'selected' : ''}" data-scope="${name}">${name}${checkSvg}</button>`).join('');
+    menu.innerHTML = `
+      <div class="scope-search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="text" placeholder="Pretraži ${cfg.labelPlural}…" id="exportScopeSearch" value="${exportState.scopeQuery || ''}">
+      </div>
+      ${allItem}
+      ${items.length ? '<div class="scope-sep"></div>' : ''}
+      ${specific}
+    `;
+  };
+
+  const updateExportScopeLabel = () => {
+    const cfg = EXPORT_ENTITIES[exportState.entity];
+    const labelEl = document.querySelector('#ddExportScope [data-label]');
+    labelEl.textContent = exportState.scope === 'all' ? cfg.labelAll : exportState.scope;
+    document.getElementById('exportScopeLabel').textContent = 'Opseg';
     updateExportPreview();
+    document.getElementById('exportDownload').disabled = false;
   };
 
   const updateExportPreview = () => {
+    const cfg = EXPORT_ENTITIES[exportState.entity];
     const parts = [];
-    const totalSel = Object.values(exportState.selected).reduce((a, s) => a + (s ? s.size : 0), 0);
-    if (totalSel === 0) {
-      parts.push('Odaberite barem jednu stavku za izvoz.');
-    } else {
-      parts.push(`Obračun za ${totalSel} ${totalSel === 1 ? 'stavku' : 'stavki'}`);
-      if (exportState.period === 'month') {
-        parts.push(`u ${MONTH_NAMES_HR[exportState.month].toLowerCase()} ${exportState.year}.`);
-      } else {
-        parts.push('za sva razdoblja.');
-      }
-      if (exportState.inactive) parts.push('Uključuje i neaktivne (s nulama).');
+    const scopeTxt = exportState.scope === 'all'
+      ? `${cfg.entities.length} ${cfg.labelPlural}`
+      : exportState.scope;
+    parts.push(`Obračun za ${scopeTxt}`);
+    if (exportState.podr !== 'all' && exportState.scope === 'all') {
+      parts.push(`iz podružnice ${exportState.podr}`);
     }
+    if (exportState.period === 'month') {
+      parts.push(`u ${MONTH_NAMES_HR[exportState.month].toLowerCase()} ${exportState.year}.`);
+    } else {
+      parts.push('za sva razdoblja.');
+    }
+    if (exportState.scope === 'all' && exportState.inactive) parts.push('Uključuje i neaktivne (s nulama).');
     document.getElementById('exportPreviewText').textContent = parts.join(' ');
+    // Inactive toggle makes sense only for "Sve"
+    const inactiveRow = document.getElementById('exportInactiveRow');
+    if (inactiveRow) inactiveRow.style.display = exportState.scope === 'all' ? '' : 'none';
+    // Podružnica filter only relevant for Lokacije (entity type)
+    const podrGroup = document.getElementById('exportPodrGroup');
+    if (podrGroup) podrGroup.style.display = exportState.entity === 'lokacije' ? '' : 'none';
+  };
+
+  // ---- Podružnica dropdown ----
+  const renderExportPodrMenu = () => {
+    const menu = document.getElementById('exportPodrMenu');
+    const checkSvg = `<svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>`;
+    const row = (val, label, isAll) => `<button type="button" class="scope-item ${isAll ? 'all' : ''} ${exportState.podr === val ? 'selected' : ''}" data-podr="${val}">${label}${checkSvg}</button>`;
+    menu.innerHTML = `
+      ${row('all', 'Sve podružnice', true)}
+      <div class="scope-sep"></div>
+      ${EXPORT_PODR.map(p => row(p, p, false)).join('')}
+    `;
+    menu.classList.add('export-scope-menu');
+  };
+  const updateExportPodrLabel = () => {
+    const label = document.querySelector('#ddExportPodr [data-label]');
+    label.textContent = exportState.podr === 'all' ? 'Sve podružnice' : exportState.podr;
+    updateExportPreview();
+  };
+
+  // ---- Toast system ----
+  const showToast = (text, { action, actionLabel, duration = 4000 } = {}) => {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+    const el = document.createElement('div');
+    el.className = 'toast';
+    const checkIc = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>`;
+    el.innerHTML = `
+      <span class="toast-ic">${checkIc}</span>
+      <span class="toast-text">${text}</span>
+      ${action ? `<button class="toast-action" type="button">${actionLabel || 'Otvori'}</button>` : ''}
+      <button class="toast-close" type="button" aria-label="Zatvori">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    `;
+    container.appendChild(el);
+    requestAnimationFrame(() => el.classList.add('show'));
+    const dismiss = () => {
+      el.classList.remove('show');
+      setTimeout(() => el.remove(), 220);
+    };
+    el.querySelector('.toast-close')?.addEventListener('click', dismiss);
+    if (action) el.querySelector('.toast-action')?.addEventListener('click', () => { action(); dismiss(); });
+    setTimeout(dismiss, duration);
+  };
+
+  // ---- Save-to-Dokumente step ----
+  const EXPORT_FORMAT_EXT = { pdf: 'pdf', xlsx: 'xlsx', csv: 'csv' };
+  const EXPORT_FORMAT_KIND = { pdf: 'pdf', xlsx: 'xls', csv: 'xls' };
+  const generateSaveFileName = () => {
+    const cfg = EXPORT_ENTITIES[exportState.entity];
+    const entityLabel = { lokacije: 'Financije', dogadjaji: 'Događaji – financije', zaposlenici: 'Zaposlenici – financije' }[exportState.entity];
+    const scopeLabel = exportState.scope === 'all' ? '' : ` – ${exportState.scope}`;
+    const period = exportState.period === 'month'
+      ? ` – ${MONTH_NAMES_HR[exportState.month]} ${exportState.year}`
+      : ' – sva razdoblja';
+    return `${entityLabel}${scopeLabel}${period}`;
+  };
+  const showExportSaveStep = () => {
+    exportState.step = 'save';
+    document.getElementById('exportBodyMain').hidden = true;
+    document.getElementById('exportFooterMain').hidden = true;
+    document.getElementById('exportBodySave').hidden = false;
+    document.getElementById('exportFooterSave').hidden = false;
+    document.getElementById('exportTitle').textContent = 'Spremi u Dokumente';
+    const ext = EXPORT_FORMAT_EXT[exportState.format];
+    const kind = EXPORT_FORMAT_KIND[exportState.format];
+    const ic = document.getElementById('saveDocIc');
+    ic.className = `dok-file-ic ${kind}`;
+    ic.textContent = ext.toUpperCase();
+    document.getElementById('saveDocExtName').textContent = '.' + ext;
+    document.getElementById('saveDocName').value = generateSaveFileName();
+    document.getElementById('saveDocCat').value = 'izvjestaji';
+  };
+  const showExportFormStep = () => {
+    exportState.step = 'form';
+    document.getElementById('exportBodyMain').hidden = false;
+    document.getElementById('exportFooterMain').hidden = false;
+    document.getElementById('exportBodySave').hidden = true;
+    document.getElementById('exportFooterSave').hidden = true;
+    document.getElementById('exportTitle').textContent = 'Izvoz';
   };
 
   const openExportModal = () => {
@@ -13153,19 +13724,24 @@
       period: 'month',
       year: finState.year, month: finState.month,
       entity: 'lokacije',
-      selected: { lokacije: new Set(), dogadjaji: new Set(), zaposlenici: new Set() },
+      scope: 'all',
+      podr: 'all',
       inactive: false,
-      query: '',
+      scopeQuery: '',
+      step: 'form',
     };
-    document.getElementById('exportSearch').value = '';
     document.getElementById('exportInactive').setAttribute('aria-checked', 'false');
     document.querySelectorAll('#exportFormat button').forEach(b => b.setAttribute('aria-pressed', b.dataset.format === 'pdf'));
     document.querySelectorAll('#exportPeriod button').forEach(b => b.setAttribute('aria-pressed', b.dataset.period === 'month'));
-    document.querySelectorAll('#exportEntityTabs .tab-btn').forEach(b => b.classList.toggle('active', b.dataset.entity === 'lokacije'));
+    document.querySelectorAll('#exportEntityTabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.entity === 'lokacije'));
     document.querySelector('#ddExportMonth [data-label]').textContent = `${MONTH_NAMES_HR[exportState.month]}, ${exportState.year}`;
     document.getElementById('ddExportMonth').style.opacity = exportState.period === 'month' ? '' : '0.4';
     document.getElementById('ddExportMonth').style.pointerEvents = exportState.period === 'month' ? '' : 'none';
-    renderExportList();
+    renderExportScopeMenu();
+    updateExportScopeLabel();
+    renderExportPodrMenu();
+    updateExportPodrLabel();
+    showExportFormStep();
     exportOverlay.classList.add('open');
     exportOverlay.setAttribute('aria-hidden', 'false');
     exportDialog.classList.add('open');
@@ -13203,40 +13779,96 @@
     document.getElementById('ddExportMonth').style.pointerEvents = exportState.period === 'month' ? '' : 'none';
     updateExportPreview();
   });
-  // Entity tabs
+  // Entity segmented — switching resets scope to "Sve"
   document.getElementById('exportEntityTabs').addEventListener('click', (e) => {
-    const b = e.target.closest('.tab-btn[data-entity]');
+    const b = e.target.closest('button[data-entity]');
     if (!b) return;
     exportState.entity = b.dataset.entity;
-    exportState.query = '';
-    document.getElementById('exportSearch').value = '';
-    document.querySelectorAll('#exportEntityTabs .tab-btn').forEach(x => x.classList.toggle('active', x === b));
-    renderExportList();
+    exportState.scope = 'all';
+    exportState.scopeQuery = '';
+    document.querySelectorAll('#exportEntityTabs button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    renderExportScopeMenu();
+    updateExportScopeLabel();
   });
-  // Search
-  document.getElementById('exportSearch').addEventListener('input', (e) => {
-    exportState.query = e.target.value;
-    renderExportList();
+  // Scope dropdown — pick single scope (all or specific)
+  document.getElementById('exportScopeMenu').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-scope]');
+    if (!btn) return;
+    exportState.scope = btn.dataset.scope;
+    renderExportScopeMenu();
+    updateExportScopeLabel();
+    // close dropdown
+    document.getElementById('ddExportScope').querySelector('.dropdown-menu').classList.remove('open');
   });
-  // Item checkbox
-  document.getElementById('exportList').addEventListener('change', (e) => {
-    const cb = e.target.closest('input[type="checkbox"][data-item]');
-    if (!cb) return;
-    const key = exportState.entity;
-    if (!exportState.selected[key]) exportState.selected[key] = new Set();
-    if (cb.checked) exportState.selected[key].add(cb.dataset.item);
-    else exportState.selected[key].delete(cb.dataset.item);
-    renderExportList();
+  document.getElementById('exportScopeMenu').addEventListener('input', (e) => {
+    if (e.target.id === 'exportScopeSearch') {
+      exportState.scopeQuery = e.target.value;
+      renderExportScopeMenu();
+      // keep focus on input
+      requestAnimationFrame(() => {
+        const input = document.getElementById('exportScopeSearch');
+        if (input) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+      });
+    }
   });
-  // Select all / clear
-  document.getElementById('exportSelectAll').addEventListener('click', () => {
-    const key = exportState.entity;
-    const all = EXPORT_ENTITIES[key].entities;
-    if (!exportState.selected[key]) exportState.selected[key] = new Set();
-    const sel = exportState.selected[key];
-    if (sel.size === all.length) sel.clear();
-    else all.forEach(n => sel.add(n));
-    renderExportList();
+  // Open the scope dropdown explicitly (menu toggles on button click)
+  document.querySelector('#ddExportScope > .field-dropdown')?.addEventListener('click', () => {
+    const menu = document.getElementById('ddExportScope').querySelector('.dropdown-menu');
+    const willOpen = !menu.classList.contains('open');
+    document.querySelectorAll('.dropdown-menu.open').forEach(m => m.classList.remove('open'));
+    menu.classList.toggle('open', willOpen);
+    if (willOpen) {
+      renderExportScopeMenu();
+      requestAnimationFrame(() => document.getElementById('exportScopeSearch')?.focus());
+    }
+  });
+
+  // Podr dropdown
+  document.querySelector('#ddExportPodr > .field-dropdown')?.addEventListener('click', () => {
+    const menu = document.getElementById('ddExportPodr').querySelector('.dropdown-menu');
+    const willOpen = !menu.classList.contains('open');
+    document.querySelectorAll('.dropdown-menu.open').forEach(m => m.classList.remove('open'));
+    menu.classList.toggle('open', willOpen);
+    if (willOpen) renderExportPodrMenu();
+  });
+  document.getElementById('exportPodrMenu').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-podr]');
+    if (!btn) return;
+    exportState.podr = btn.dataset.podr;
+    renderExportPodrMenu();
+    updateExportPodrLabel();
+    document.getElementById('ddExportPodr').querySelector('.dropdown-menu').classList.remove('open');
+  });
+
+  // Spremi u Dokumente button → open save step
+  document.getElementById('exportSaveDocs')?.addEventListener('click', showExportSaveStep);
+  document.getElementById('exportSaveBack')?.addEventListener('click', showExportFormStep);
+  document.getElementById('exportSaveConfirm')?.addEventListener('click', () => {
+    const nameRaw = document.getElementById('saveDocName').value.trim();
+    if (!nameRaw) return;
+    const ext = EXPORT_FORMAT_EXT[exportState.format];
+    const fullName = nameRaw.toLowerCase().endsWith('.' + ext) ? nameRaw : `${nameRaw}.${ext}`;
+    const cat = document.getElementById('saveDocCat').value;
+    // Mock file size
+    const estSize = exportState.format === 'pdf' ? 240 * 1024 : (exportState.format === 'xlsx' ? 48 * 1024 : 12 * 1024);
+    const today = new Date().toISOString().slice(0, 10);
+    if (typeof DOK_ROWS !== 'undefined') {
+      DOK_ROWS.unshift({
+        name: fullName,
+        size: estSize,
+        cat,
+        ext,
+        date: today,
+        uploader: 'Jelena Njeguš',
+        uplCls: 'p1',
+      });
+      if (typeof renderDokumenti === 'function') renderDokumenti();
+    }
+    closeExportModal();
+    showToast(`Spremljeno u Dokumente — ${fullName}`, {
+      action: () => { if (typeof setPage === 'function') setPage('dokumenti'); },
+      actionLabel: 'Otvori',
+    });
   });
   // Include inactive toggle
   document.getElementById('exportInactive').addEventListener('click', (e) => {
@@ -13245,7 +13877,7 @@
     exportState.inactive = nv;
     updateExportPreview();
   });
-  // Month picker
+  // Month picker — close scope menu when month picker opens
   setupMonthPicker(
     document.getElementById('ddExportMonth'),
     () => ({ year: exportState.year, month: exportState.month }),
