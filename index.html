@@ -5409,6 +5409,31 @@
   /* Hide Ukloni when no custom logo (showing default placeholder) */
   .org-logo-preview.has-default + .org-logo-actions #btnOrgLogoRemove { display: none; }
 
+  /* Postavke → Organizacija: company data fields */
+  .org-field-group {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .org-fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 16px;
+    background: var(--surface-default);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-m);
+  }
+  .org-field-inline {
+    display: flex; flex-direction: column; gap: 6px;
+    min-width: 0;
+  }
+  .org-field-full { grid-column: 1 / -1; }
+  .org-inline-label {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-caption);
+    letter-spacing: 0;
+  }
+
   /* Nova oznaka drawer — preview + color swatches */
   .oznaka-preview {
     display: flex; align-items: center;
@@ -7913,6 +7938,33 @@
                       <input type="file" id="orgLogoInput" accept="image/png,image/jpeg,image/svg+xml" hidden>
                     </div>
                     <div class="org-logo-formats">PNG, JPG ili SVG · maks. 2 MB · preporučeno 400 × 120 px (horizontalno)</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="org-field-group">
+                <div class="org-field-head">
+                  <span class="form-label">Podaci firme</span>
+                  <span class="org-field-hint">Ispisuju se u zaglavlju izvezenih izvještaja i dokumenata.</span>
+                </div>
+                <div class="org-fields-grid">
+                  <div class="org-field-inline org-field-full">
+                    <label class="org-inline-label" for="orgCompanyName">Ime firme</label>
+                    <div class="form-input-wrap">
+                      <input type="text" id="orgCompanyName" value="Kord d.o.o." placeholder="npr. Kord d.o.o.">
+                    </div>
+                  </div>
+                  <div class="org-field-inline org-field-full">
+                    <label class="org-inline-label" for="orgCompanyAddress">Adresa</label>
+                    <div class="form-input-wrap">
+                      <input type="text" id="orgCompanyAddress" value="Ilica 45, 10000 Zagreb" placeholder="Ulica i broj, poštanski broj i grad">
+                    </div>
+                  </div>
+                  <div class="org-field-inline">
+                    <label class="org-inline-label" for="orgCompanyOib">OIB</label>
+                    <div class="form-input-wrap">
+                      <input type="text" id="orgCompanyOib" value="12345678901" placeholder="11 znamenki" inputmode="numeric" maxlength="11">
+                    </div>
                   </div>
                 </div>
               </div>
